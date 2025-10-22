@@ -16,12 +16,9 @@
     <title>Daniel Gaudreault - Cyber Business Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
-    <!-- For Android -->
-    <link rel="icon" type="image/png" href="images/capmatic.png"> <!-- Updated Favicon -->
-    <!-- For iOS -->
+    <!-- Tab icon -->
+    <link rel="icon" type="image/png" href="images/capmatic.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/capmatic.png">
-    <link rel="manifest" href="manifest.json"> <!-- Manifest file for PWA -->
     <style>
         :root {
             --primary-color: #00f7ff; /* Cyber blue */
@@ -35,9 +32,10 @@
             --padding-large: 30px;
             --font-size-base: 16px;
             --font-main: 'Orbitron', 'Segoe UI', sans-serif;
+            --font-secondary: 'Rajdhani', sans-serif;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -90,6 +88,44 @@
             opacity: 0.2;
         }
 
+        /* Animated particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+
         .home-link {
             position: fixed;
             top: var(--padding-small);
@@ -110,7 +146,7 @@
 
         .home-link:hover img {
             transform: translateY(-5px) scale(1.05);
-            filter: drop-shadow(0 0 10px var(--primary-color));
+            filter: drop-shadow(0 0 10px var(--primary-color)) brightness(1.2);
         }
 
         .main-content {
@@ -196,6 +232,25 @@
             text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
             letter-spacing: 2px;
             font-weight: 700;
+            font-family: var(--font-main);
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .card-header::after {
@@ -224,6 +279,23 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             border-left: 3px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
         }
 
         .contact-item:hover {
@@ -238,6 +310,12 @@
             width: 30px;
             text-align: center;
             margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover i {
+            color: var(--accent-color);
+            transform: scale(1.2);
         }
 
         .contact-item strong {
@@ -245,6 +323,8 @@
             margin-right: 8px;
             min-width: 70px;
             text-align: left;
+            font-family: var(--font-secondary);
+            font-weight: 600;
         }
 
         .contact-item a {
@@ -253,10 +333,27 @@
             transition: color 0.3s ease;
             flex: 1;
             text-align: left;
+            font-family: var(--font-secondary);
+            position: relative;
+        }
+
+        .contact-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
         }
 
         .contact-item a:hover {
             color: var(--secondary-color);
+        }
+
+        .contact-item a:hover::after {
+            width: 100%;
         }
 
         .specialty {
@@ -266,6 +363,13 @@
             font-weight: 500;
             text-shadow: 0 0 5px rgba(255, 0, 214, 0.5);
             letter-spacing: 1px;
+            font-family: var(--font-secondary);
+            position: relative;
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+            background: rgba(255, 0, 214, 0.1);
         }
 
         footer {
@@ -275,12 +379,33 @@
             text-align: center;
             border-top: 1px solid var(--primary-color);
             box-shadow: 0 -5px 15px rgba(0, 247, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            animation: footerGlow 3s infinite linear;
+        }
+
+        @keyframes footerGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         footer p {
             margin: 0;
             font-size: 0.8em;
             color: var(--primary-color);
+            font-family: var(--font-secondary);
+            letter-spacing: 1px;
         }
 
         .social-icons {
@@ -305,6 +430,22 @@
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--primary-color);
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-icon:hover::before {
+            left: 100%;
         }
 
         .social-icon:hover {
@@ -329,6 +470,8 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            font-family: var(--font-secondary);
+            border: 1px solid var(--primary-color);
         }
 
         .social-icon:hover::after {
@@ -388,6 +531,18 @@
             100% {
                 top: 100%;
             }
+        }
+
+        /* Matrix rain effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.05;
+            pointer-events: none;
         }
 
         @media screen and (max-width: 768px) {
@@ -451,6 +606,8 @@
 <body>
     <div class="cyber-grid"></div>
     <div class="cyber-lines"></div>
+    <div class="particles" id="particles"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
     
     <div class="home-link" aria-label="Home" onclick="goToHomePage()">
         <img src="images/logo.png" alt="Capmatic logo">
@@ -548,6 +705,73 @@
             
             // Float the card every 4 seconds
             setInterval(floatCard, 4000);
+            
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position and animation delay
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 10 + Math.random() * 10;
+                
+                particle.style.left = `${left}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random size
+                const size = 1 + Math.random() * 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random color
+                const colors = ['#00f7ff', '#ff00d6', '#00ff88'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Simple matrix rain effect
+            const matrixRain = document.getElementById('matrixRain');
+            const chars = '01';
+            const columns = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.style.position = 'absolute';
+                column.style.top = '-100px';
+                column.style.left = `${i * 20}px`;
+                column.style.width = '2px';
+                column.style.fontFamily = 'monospace';
+                column.style.fontSize = '18px';
+                column.style.color = '#00ff41';
+                column.style.textShadow = '0 0 5px #00ff41';
+                column.style.animation = `matrixFall ${3 + Math.random() * 5}s linear infinite`;
+                column.style.animationDelay = `${Math.random() * 5}s`;
+                
+                let text = '';
+                for (let j = 0; j < 30; j++) {
+                    text += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                column.textContent = text;
+                
+                matrixRain.appendChild(column);
+            }
+            
+            // Add matrix fall animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes matrixFall {
+                    0% { top: -100px; opacity: 1; }
+                    100% { top: 100vh; opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
