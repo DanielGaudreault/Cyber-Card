@@ -3,79 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Daniel Gaudreault's ultimate cyber business card for packaging machinery solutions.">
+    <meta name="description" content="Daniel Gaudreault's mobile-optimized cyber business card">
     <meta name="keywords" content="packaging machinery, robotic solutions, Montreal, Capmatic">
-    <meta property="og:title" content="Daniel Gaudreault - Ultimate Cyber Business Card">
+    <meta property="og:title" content="Daniel Gaudreault - Cyber Business Card">
     <meta property="og:description" content="Contact information for Daniel Gaudreault, providing packaging machinery and robotic solutions.">
     <meta property="og:image" content="images/capmatic.png">
     <meta property="og:url" content="https://danielgaudreault.github.io/Cyber-Card/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Daniel Gaudreault - Ultimate Cyber Business Card">
+    <meta name="twitter:title" content="Daniel Gaudreault - Cyber Business Card">
     <meta name="twitter:description" content="Contact information for Daniel Gaudreault, providing packaging machinery and robotic solutions.">
     <meta name="twitter:image" content="images/capmatic.png">
-    <title>Daniel Gaudreault - Ultimate Cyber Business Card</title>
+    <title>Daniel Gaudreault - Cyber Business Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Tab icon -->
     <link rel="icon" type="image/png" href="images/capmatic.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/capmatic.png">
     <style>
         :root {
-            --primary-color: #00f7ff; /* Cyber blue */
-            --secondary-color: #ff00d6; /* Cyber pink */
-            --accent-color: #00ff88; /* Cyber green */
-            --warning-color: #ffaa00; /* Cyber yellow */
+            --primary-color: #00f7ff;
+            --secondary-color: #ff00d6;
+            --accent-color: #00ff88;
             --text-color: #ffffff;
             --dark-bg: #0a0a1a;
-            --card-bg: rgba(20, 20, 50, 0.85);
-            --padding-small: 10px;
+            --card-bg: rgba(20, 20, 50, 0.92);
+            --padding-small: 12px;
             --padding-medium: 20px;
-            --padding-large: 30px;
+            --padding-large: 25px;
             --font-size-base: 16px;
-            --font-main: 'Orbitron', 'Segoe UI', sans-serif;
+            --font-main: 'Orbitron', sans-serif;
             --font-secondary: 'Rajdhani', sans-serif;
-            --font-matrix: 'Courier New', monospace;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            height: 100%;
+            overflow-x: hidden;
         }
 
         body {
             font-family: var(--font-main);
-            margin: 0;
-            padding: 0;
             background: var(--dark-bg);
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
-            line-height: 1.6;
-            font-size: var(--font-size-base);
+            height: 100%;
             overflow-x: hidden;
             color: var(--text-color);
-            position: relative;
+            line-height: 1.5;
+            font-size: var(--font-size-base);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
-        /* Animated background */
-        .cyber-background {
+        /* Mobile-optimized background */
+        .mobile-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 247, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 214, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
-            background-color: var(--dark-bg);
+                radial-gradient(circle at 20% 80%, rgba(0, 247, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 214, 0.15) 0%, transparent 50%),
+                var(--dark-bg);
+            z-index: -3;
         }
 
-        /* Cyber grid with animation */
         .cyber-grid {
             position: fixed;
             top: 0;
@@ -83,35 +81,14 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(0, 247, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
             z-index: -2;
-            opacity: 0.3;
-            animation: gridMove 20s linear infinite;
+            opacity: 0.4;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Hexagon pattern */
-        .hexagon-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0, 247, 255, 0.03) 49px, rgba(0, 247, 255, 0.03) 50px),
-                repeating-linear-gradient(60deg, transparent, transparent 49px, rgba(255, 0, 214, 0.03) 49px, rgba(255, 0, 214, 0.03) 50px),
-                repeating-linear-gradient(120deg, transparent, transparent 49px, rgba(0, 255, 136, 0.03) 49px, rgba(0, 255, 136, 0.03) 50px);
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        /* Animated particles */
+        /* Mobile-optimized particles */
         .particles-container {
             position: fixed;
             top: 0;
@@ -119,14 +96,14 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
+            pointer-events: none;
         }
 
         .particle {
             position: absolute;
             border-radius: 50%;
             background: var(--primary-color);
-            animation: float 15s infinite linear;
+            animation: float 20s infinite linear;
             opacity: 0;
         }
 
@@ -136,10 +113,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.7;
+                opacity: 0.6;
             }
             90% {
-                opacity: 0.7;
+                opacity: 0.6;
             }
             100% {
                 transform: translateY(-100px) translateX(20px) rotate(360deg);
@@ -147,26 +124,36 @@
             }
         }
 
-        /* Home link with advanced effects */
-        .home-link {
+        /* Mobile header with logo */
+        .mobile-header {
             position: fixed;
-            top: var(--padding-small);
-            left: var(--padding-small);
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--padding-small);
             z-index: 1000;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            filter: drop-shadow(0 0 10px var(--primary-color));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-color);
         }
 
-        .home-link img {
-            width: 80px;
-            height: 80px;
-            transition: all 0.5s ease;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            padding: 3px;
-            animation: logoRotate 10s linear infinite;
+            border: 2px solid var(--primary-color);
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            animation: logoRotate 15s linear infinite;
         }
 
         @keyframes logoRotate {
@@ -174,76 +161,108 @@
             100% { transform: rotate(360deg); }
         }
 
-        .home-link:hover img {
-            transform: scale(1.1) rotate(180deg);
-            filter: drop-shadow(0 0 15px var(--secondary-color)) brightness(1.3);
-        }
-
-        .home-link::after {
-            content: 'HOME';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
+        .logo-text {
+            font-family: var(--font-main);
+            font-size: 1.1em;
             color: var(--primary-color);
-            font-size: 0.7em;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-family: var(--font-secondary);
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        .home-link:hover::after {
-            opacity: 1;
-        }
-
-        /* Main content area */
-        .main-content {
-            flex: 1;
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: var(--padding-medium);
-            perspective: 1000px;
+            gap: 4px;
+            cursor: pointer;
         }
 
-        /* Ultimate cyber card */
-        .cyber-card {
-            position: relative;
-            text-align: center;
+        .menu-bar {
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 250px;
+            background: rgba(20, 20, 50, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            border-radius: 0 0 0 15px;
+            padding: var(--padding-medium);
+            z-index: 999;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 15px;
             color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            font-family: var(--font-secondary);
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .nav-item:hover {
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+
+        /* Main content optimized for mobile */
+        .main-content {
+            padding: 80px var(--padding-medium) var(--padding-medium);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Mobile-optimized cyber card */
+        .cyber-card {
+            width: 100%;
+            max-width: 500px;
             background: var(--card-bg);
+            border-radius: 20px;
             padding: var(--padding-large);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 
-                0 0 30px rgba(0, 247, 255, 0.5),
-                inset 0 0 30px rgba(0, 247, 255, 0.1);
-            border: 1px solid transparent;
+            position: relative;
             overflow: hidden;
             backdrop-filter: blur(15px);
-            transition: all 0.5s ease;
-            transform-style: preserve-3d;
-            animation: cardEntrance 1.5s ease-out;
-        }
-
-        @keyframes cardEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) rotateX(10deg);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        .cyber-card:hover {
+            border: 1px solid transparent;
             box-shadow: 
-                0 0 50px rgba(0, 247, 255, 0.7),
-                inset 0 0 40px rgba(0, 247, 255, 0.2);
-            transform: translateY(-10px) rotateX(5deg);
+                0 0 30px rgba(0, 247, 255, 0.4),
+                inset 0 0 20px rgba(0, 247, 255, 0.1);
+            margin-bottom: var(--padding-medium);
         }
 
         .cyber-card::before {
@@ -255,8 +274,8 @@
             bottom: -2px;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
             z-index: -1;
-            border-radius: 17px;
-            animation: borderGlow 3s linear infinite;
+            border-radius: 22px;
+            animation: borderGlow 4s linear infinite;
             background-size: 400%;
         }
 
@@ -268,23 +287,16 @@
             right: 0;
             bottom: 0;
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             z-index: -1;
         }
 
         @keyframes borderGlow {
-            0% {
-                background-position: 0 0;
-            }
-            50% {
-                background-position: 400% 0;
-            }
-            100% {
-                background-position: 0 0;
-            }
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
         }
 
-        /* Scan line effect */
         .scan-line {
             position: absolute;
             top: 0;
@@ -293,555 +305,448 @@
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
             animation: scan 4s linear infinite;
-            opacity: 0.8;
             z-index: 2;
         }
 
         @keyframes scan {
-            0% {
-                top: 0;
-            }
-            100% {
-                top: 100%;
-            }
+            0% { top: 0; }
+            100% { top: 100%; }
         }
 
-        /* Corner elements */
-        .cyber-corner {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            z-index: 3;
-        }
-
-        .corner-tl {
-            top: 10px;
-            left: 10px;
-            border-top: 3px solid var(--primary-color);
-            border-left: 3px solid var(--primary-color);
-            animation: cornerPulse 2s infinite;
-        }
-
-        .corner-tr {
-            top: 10px;
-            right: 10px;
-            border-top: 3px solid var(--secondary-color);
-            border-right: 3px solid var(--secondary-color);
-            animation: cornerPulse 2s infinite 0.5s;
-        }
-
-        .corner-bl {
-            bottom: 10px;
-            left: 10px;
-            border-bottom: 3px solid var(--accent-color);
-            border-left: 3px solid var(--accent-color);
-            animation: cornerPulse 2s infinite 1s;
-        }
-
-        .corner-br {
-            bottom: 10px;
-            right: 10px;
-            border-bottom: 3px solid var(--warning-color);
-            border-right: 3px solid var(--warning-color);
-            animation: cornerPulse 2s infinite 1.5s;
-        }
-
-        @keyframes cornerPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Card header */
+        /* Card header for mobile */
         .card-header {
+            text-align: center;
             margin-bottom: var(--padding-medium);
             position: relative;
         }
 
-        .card-header h2 {
+        .card-header h1 {
             color: transparent;
-            font-size: 3em;
-            margin-bottom: var(--padding-small);
-            text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
-            letter-spacing: 3px;
-            font-weight: 900;
-            font-family: var(--font-main);
-            position: relative;
-            display: inline-block;
+            font-size: 2em;
+            margin-bottom: 8px;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
             -webkit-background-clip: text;
             background-clip: text;
-            animation: textShine 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes textShine {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .card-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), var(--accent-color), transparent);
-            animation: pulse 2s infinite;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            line-height: 1.2;
         }
 
         .card-header::after {
             content: '';
             display: block;
-            width: 150px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            margin: 15px auto;
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 12px auto;
             border-radius: 2px;
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
         }
 
-        /* Contact details */
+        /* Mobile-optimized contact items */
         .contact-details {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             margin-bottom: var(--padding-medium);
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 15px 20px;
+            padding: 16px;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            transition: all 0.4s ease;
+            border-radius: 12px;
             border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
         }
 
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.3), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .contact-item:hover::before {
-            left: 100%;
-        }
-
-        .contact-item:hover {
-            background: rgba(0, 0, 0, 0.5);
-            transform: translateX(10px) translateZ(10px);
-            border-left: 4px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+        .contact-item:active {
+            transform: scale(0.98);
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .contact-item i {
             color: var(--primary-color);
-            font-size: 1.5em;
-            width: 40px;
+            font-size: 1.4em;
+            width: 35px;
             text-align: center;
             margin-right: 15px;
-            transition: all 0.4s ease;
-            text-shadow: 0 0 5px var(--primary-color);
+            flex-shrink: 0;
         }
 
-        .contact-item:hover i {
-            color: var(--accent-color);
-            transform: scale(1.3) rotate(10deg);
-            text-shadow: 0 0 10px var(--accent-color);
+        .contact-item .contact-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .contact-item strong {
             color: var(--accent-color);
-            margin-right: 10px;
-            min-width: 80px;
-            text-align: left;
             font-family: var(--font-secondary);
             font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 0.9em;
+            margin-bottom: 4px;
         }
 
-        .contact-item a {
+        .contact-item a, .contact-item span {
             color: var(--text-color);
             text-decoration: none;
-            transition: all 0.3s ease;
-            flex: 1;
-            text-align: left;
             font-family: var(--font-secondary);
-            position: relative;
-            font-size: 1.1em;
+            font-size: 1em;
+            word-break: break-word;
         }
 
-        .contact-item a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: width 0.4s ease;
-            box-shadow: 0 0 5px var(--secondary-color);
-        }
-
-        .contact-item a:hover {
+        .contact-item a:active {
             color: var(--secondary-color);
-            text-shadow: 0 0 5px var(--secondary-color);
         }
 
-        .contact-item a:hover::after {
-            width: 100%;
-        }
-
-        /* Specialty section */
+        /* Specialty section for mobile */
         .specialty {
-            color: transparent;
-            font-size: 1.5em;
-            margin-top: var(--padding-medium);
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(255, 0, 214, 0.5);
-            letter-spacing: 2px;
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 1.2em;
             font-family: var(--font-secondary);
-            position: relative;
-            display: inline-block;
-            padding: 10px 25px;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: specialtyPulse 3s infinite;
-            overflow: hidden;
+            font-weight: 600;
+            padding: 12px 20px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            background: rgba(255, 0, 214, 0.1);
+            margin-top: var(--padding-medium);
+            letter-spacing: 1px;
         }
 
-        .specialty::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .specialty:hover::before {
-            left: 100%;
-        }
-
-        @keyframes specialtyPulse {
-            0%, 100% { 
-                box-shadow: 0 0 10px rgba(255, 0, 214, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 20px rgba(255, 0, 214, 0.7);
-            }
-        }
-
-        /* Footer */
-        footer {
+        /* Mobile-optimized footer */
+        .mobile-footer {
             background: rgba(10, 10, 30, 0.95);
-            color: var(--text-color);
-            padding: var(--padding-medium) 0;
+            padding: var(--padding-medium);
             text-align: center;
             border-top: 1px solid var(--primary-color);
-            box-shadow: 0 -5px 20px rgba(0, 247, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+            margin-top: auto;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
-            animation: footerGlow 3s infinite linear;
-            background-size: 200%;
         }
 
-        @keyframes footerGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
+        .copyright {
             color: var(--primary-color);
             font-family: var(--font-secondary);
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--primary-color);
+            font-size: 0.85em;
+            margin-bottom: var(--padding-medium);
+            letter-spacing: 0.5px;
         }
 
+        /* Mobile-optimized social icons */
         .social-icons {
-            margin-top: var(--padding-medium);
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 12px;
         }
 
         .social-icon {
-            position: relative;
-            color: var(--text-color);
-            font-size: 28px;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.3);
             border: 2px solid var(--primary-color);
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .social-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.4), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .social-icon:hover::before {
-            left: 100%;
-        }
-
-        .social-icon:hover {
-            color: var(--secondary-color);
-            transform: translateY(-10px) rotateY(15deg) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.5);
-            border-color: var(--secondary-color);
-        }
-
-        .social-icon::after {
-            content: attr(aria-label);
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
             color: var(--text-color);
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.8em;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            font-family: var(--font-secondary);
-            border: 1px solid var(--primary-color);
-            letter-spacing: 1px;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        .social-icon:hover::after {
-            opacity: 1;
+        .social-icon:active {
+            transform: scale(0.9);
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
         }
 
-        /* Matrix rain effect */
-        .matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        /* Audio visualization bars */
-        .audio-bars {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
+        /* Quick actions for mobile */
+        .quick-actions {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            padding: 0 20px;
-            z-index: -1;
-            opacity: 0.3;
+            gap: 12px;
+            margin-top: var(--padding-medium);
+            justify-content: center;
         }
 
-        .bar {
-            width: 8px;
-            background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
-            border-radius: 4px 4px 0 0;
-            animation: barAnimation 1.5s ease-in-out infinite;
-            animation-delay: calc(var(--i) * 0.1s);
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-family: var(--font-secondary);
+            font-size: 0.9em;
+            text-align: center;
+            transition: all 0.3s ease;
+            max-width: 150px;
         }
 
-        @keyframes barAnimation {
-            0%, 100% { height: 10px; }
-            50% { height: 80px; }
+        .action-btn:active {
+            background: rgba(0, 247, 255, 0.2);
+            transform: scale(0.95);
         }
 
-        /* Media queries */
-        @media screen and (max-width: 768px) {
+        /* Touch-friendly enhancements */
+        @media (max-width: 768px) {
+            :root {
+                --padding-small: 10px;
+                --padding-medium: 16px;
+                --padding-large: 20px;
+            }
+
             .cyber-card {
                 padding: var(--padding-medium);
+                border-radius: 16px;
             }
-            .card-header h2 {
-                font-size: 2.2em;
-            }
-            .specialty {
-                font-size: 1.2em;
-            }
-            .home-link img {
-                width: 60px;
-                height: 60px;
-            }
-            .contact-item {
-                flex-direction: column;
-                text-align: center;
-                padding: 12px;
-            }
-            .contact-item i {
-                margin-right: 0;
-                margin-bottom: 8px;
-            }
-            .contact-item strong {
-                min-width: auto;
-                margin-right: 0;
-                margin-bottom: 5px;
-            }
-            .social-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
-        }
 
-        @media screen and (max-width: 480px) {
-            body {
-                font-size: 14px;
+            .card-header h1 {
+                font-size: 1.7em;
             }
-            .cyber-card {
-                padding: var(--padding-small);
+
+            .contact-item {
+                padding: 14px;
             }
-            .card-header h2 {
-                font-size: 1.8em;
+
+            .contact-item i {
+                font-size: 1.3em;
+                width: 30px;
             }
+
             .specialty {
-                font-size: 1em;
-                padding: 8px 15px;
+                font-size: 1.1em;
+                padding: 10px 16px;
             }
+
             .social-icon {
                 width: 45px;
                 height: 45px;
-                font-size: 20px;
+                font-size: 1.2em;
             }
-            footer p {
-                font-size: 0.8em;
+        }
+
+        @media (max-width: 480px) {
+            .card-header h1 {
+                font-size: 1.5em;
             }
-            .home-link img {
-                width: 50px;
-                height: 50px;
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .contact-item i {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .contact-item .contact-content {
+                align-items: center;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                max-width: 200px;
+                width: 100%;
+            }
+        }
+
+        /* Safe area support for notches */
+        @supports(padding: max(0px)) {
+            .main-content {
+                padding-left: max(var(--padding-medium), env(safe-area-inset-left));
+                padding-right: max(var(--padding-medium), env(safe-area-inset-right));
+            }
+            
+            .mobile-footer {
+                padding-left: max(var(--padding-medium), env(safe-area-inset-left));
+                padding-right: max(var(--padding-medium), env(safe-area-inset-right));
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="cyber-background"></div>
+    <div class="mobile-bg"></div>
     <div class="cyber-grid"></div>
-    <div class="hexagon-pattern"></div>
     <div class="particles-container" id="particles"></div>
-    <div class="matrix-rain" id="matrixRain"></div>
-    <div class="audio-bars" id="audioBars"></div>
-    
-    <div class="home-link" aria-label="Home" onclick="goToHomePage()">
-        <img src="images/logo.png" alt="Capmatic logo">
-    </div>
 
-    <div class="main-content">
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Capmatic" class="logo">
+            <div class="logo-text">CAPMATIC</div>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <div class="menu-bar"></div>
+            <div class="menu-bar"></div>
+            <div class="menu-bar"></div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="tel:+15143220062" class="nav-item">
+            <i class="fas fa-phone"></i> Call Now
+        </a>
+        <a href="mailto:dgaudreault@capmatic.com" class="nav-item">
+            <i class="fas fa-envelope"></i> Send Email
+        </a>
+        <a href="http://www.capmatic.com" class="nav-item" target="_blank">
+            <i class="fas fa-globe"></i> Visit Website
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" class="nav-item" target="_blank">
+            <i class="fas fa-map-marker-alt"></i> Get Directions
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
         <article class="cyber-card">
             <div class="scan-line"></div>
-            <div class="cyber-corner corner-tl"></div>
-            <div class="cyber-corner corner-tr"></div>
-            <div class="cyber-corner corner-bl"></div>
-            <div class="cyber-corner corner-br"></div>
             
             <div class="card-header">
-                <h2>DANIEL GAUDREAULT</h2>
+                <h1>DANIEL GAUDREAULT</h1>
             </div>
             
             <div class="contact-details">
-                <div class="contact-item">
+                <div class="contact-item" onclick="handleContactClick('mailto:dgaudreault@capmatic.com')">
                     <i class="fas fa-envelope"></i>
-                    <strong>Email:</strong>
-                    <a href="mailto:dgaudreault@capmatic.com">dgaudreault@capmatic.com</a>
+                    <div class="contact-content">
+                        <strong>EMAIL</strong>
+                        <a href="mailto:dgaudreault@capmatic.com">dgaudreault@capmatic.com</a>
+                    </div>
                 </div>
-                <div class="contact-item">
+                
+                <div class="contact-item" onclick="handleContactClick('tel:+15143220062')">
                     <i class="fas fa-phone"></i>
-                    <strong>Phone:</strong>
-                    <a href="tel:+15143220062">+1 514-322-0062 Ext 231</a>
+                    <div class="contact-content">
+                        <strong>PHONE</strong>
+                        <a href="tel:+15143220062">+1 514-322-0062 Ext 231</a>
+                    </div>
                 </div>
-                <div class="contact-item">
+                
+                <div class="contact-item" onclick="handleContactClick('https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7')">
                     <i class="fas fa-map-marker-alt"></i>
-                    <strong>Address:</strong>
-                    <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" target="_blank">12180 Albert-Hudon, Montreal, QC, Canada, H1G 3K7</a>
+                    <div class="contact-content">
+                        <strong>ADDRESS</strong>
+                        <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" target="_blank">12180 Albert-Hudon, Montreal</a>
+                    </div>
                 </div>
-                <div class="contact-item">
+                
+                <div class="contact-item" onclick="handleContactClick('http://www.capmatic.com')">
                     <i class="fas fa-globe"></i>
-                    <strong>Web:</strong>
-                    <a href="http://www.capmatic.com" target="_blank">www.capmatic.com</a>
+                    <div class="contact-content">
+                        <strong>WEBSITE</strong>
+                        <a href="http://www.capmatic.com" target="_blank">www.capmatic.com</a>
+                    </div>
                 </div>
             </div>
             
-            <h3 class="specialty">PACKAGING MACHINERY & ROBOTIC SOLUTIONS</h3>
+            <div class="specialty">
+                PACKAGING MACHINERY & ROBOTIC SOLUTIONS
+            </div>
         </article>
-    </div>
 
-    <footer>
-        <p>© 2025 DANIEL GAUDREAULT. ALL RIGHTS RESERVED.</p>
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn" onclick="handleContactClick('tel:+15143220062')">
+                <i class="fas fa-phone"></i> Call
+            </button>
+            <button class="action-btn" onclick="handleContactClick('mailto:dgaudreault@capmatic.com')">
+                <i class="fas fa-envelope"></i> Email
+            </button>
+            <button class="action-btn" onclick="handleContactClick('https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7')">
+                <i class="fas fa-map-marker-alt"></i> Directions
+            </button>
+        </div>
+    </main>
+
+    <!-- Mobile Footer -->
+    <footer class="mobile-footer">
+        <div class="copyright">
+            © 2025 DANIEL GAUDREAULT. ALL RIGHTS RESERVED.
+        </div>
+        
         <div class="social-icons">
-            <a href="https://www.facebook.com/dan.gaudreault/" class="social-icon" aria-label="Facebook" onclick="showMessage(event, 'Facebook')"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com/DGmovement87" class="social-icon" aria-label="Twitter" onclick="showMessage(event, 'Twitter')"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-icon" aria-label="LinkedIn" onclick="showMessage(event, 'LinkedIn')"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://github.com/DanielGaudreault" class="social-icon" aria-label="GitHub" onclick="showMessage(event, 'GitHub')"><i class="fab fa-github"></i></a>
-            <a href="https://www.instagram.com/dgmovement87/" class="social-icon" aria-label="Instagram" onclick="showMessage(event, 'Instagram')"><i class="fab fa-instagram"></i></a>
-            <a href="https://m.me/dan.gaudreault" class="social-icon" aria-label="Messenger" onclick="showMessage(event, 'Messenger')"><i class="fab fa-facebook-messenger"></i></a>
-            <a href="https://discord.gg/KMPvjRGTvJ" class="social-icon" aria-label="Discord" onclick="showMessage(event, 'Discord')"><i class="fab fa-discord"></i></a>
+            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-icon" aria-label="LinkedIn" onclick="showMessage(event, 'LinkedIn')">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.facebook.com/dan.gaudreault/" class="social-icon" aria-label="Facebook" onclick="showMessage(event, 'Facebook')">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/DGmovement87" class="social-icon" aria-label="Twitter" onclick="showMessage(event, 'Twitter')">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://github.com/DanielGaudreault" class="social-icon" aria-label="GitHub" onclick="showMessage(event, 'GitHub')">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
     </footer>
 
     <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!menuToggle.contains(event.target) && !mobileNav.contains(event.target)) {
+                menuToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // Handle contact clicks with better mobile UX
+        function handleContactClick(url) {
+            if (url.startsWith('tel:') || url.startsWith('mailto:')) {
+                window.location.href = url;
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Enhanced mobile alert
         function showMessage(event, platform) {
             event.preventDefault();
+            event.stopPropagation();
+            
             Swal.fire({
-                title: `<span style="color: #00f7ff; text-shadow: 0 0 10px #00f7ff;">${platform}</span>`,
-                html: `<p style="color: white;">Redirecting to <strong style="color: #ff00d6;">${platform}</strong></p>`,
+                title: `<span style="color: #00f7ff;">${platform}</span>`,
+                html: `<p style="color: white; font-size: 16px;">Opening ${platform}</p>`,
                 icon: 'info',
-                confirmButtonText: `Access ${platform}`,
-                showCancelButton: true,
                 background: 'rgba(20, 20, 50, 0.95)',
-                color: '#ffffff',
+                showCancelButton: true,
+                confirmButtonText: 'Open',
+                cancelButtonText: 'Cancel',
                 confirmButtonColor: '#00f7ff',
                 cancelButtonColor: '#ff00d6',
                 customClass: {
-                    popup: 'cyber-popup'
+                    popup: 'mobile-swal',
+                    confirmButton: 'mobile-confirm-btn',
+                    cancelButton: 'mobile-cancel-btn'
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -850,29 +755,19 @@
             });
         }
 
-        function goToHomePage() {
-            // Add a cool transition effect
-            document.querySelector('.cyber-card').style.animation = 'cardEntrance 0.5s ease-in reverse';
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 500);
-        }
-        
-        // Initialize advanced effects
+        // Create mobile-optimized particles
         document.addEventListener('DOMContentLoaded', function() {
-            // Create particles
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+            const particleCount = window.innerWidth < 768 ? 20 : 30;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Random properties
                 const left = Math.random() * 100;
                 const delay = Math.random() * 15;
-                const duration = 10 + Math.random() * 15;
-                const size = 2 + Math.random() * 5;
+                const duration = 15 + Math.random() * 20;
+                const size = 1 + Math.random() * 3;
                 
                 particle.style.left = `${left}%`;
                 particle.style.animationDelay = `${delay}s`;
@@ -880,90 +775,42 @@
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
-                // Random color from cyber palette
-                const colors = ['#00f7ff', '#ff00d6', '#00ff88', '#ffaa00'];
+                const colors = ['#00f7ff', '#ff00d6', '#00ff88'];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.background = color;
-                particle.style.boxShadow = `0 0 ${size*2}px ${color}`;
                 
                 particlesContainer.appendChild(particle);
             }
-            
-            // Create matrix rain
-            const matrixRain = document.getElementById('matrixRain');
-            const chars = '01010101010101010101';
-            const columns = Math.floor(window.innerWidth / 15);
-            
-            for (let i = 0; i < columns; i++) {
-                const column = document.createElement('div');
-                column.style.position = 'absolute';
-                column.style.top = '-100px';
-                column.style.left = `${i * 15}px`;
-                column.style.width = '2px';
-                column.style.fontFamily = 'Courier New, monospace';
-                column.style.fontSize = '16px';
-                column.style.color = '#00ff41';
-                column.style.textShadow = '0 0 5px #00ff41';
-                column.style.animation = `matrixFall ${3 + Math.random() * 5}s linear infinite`;
-                column.style.animationDelay = `${Math.random() * 5}s`;
-                
-                let text = '';
-                for (let j = 0; j < 40; j++) {
-                    text += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                column.textContent = text;
-                
-                matrixRain.appendChild(column);
-            }
-            
-            // Create audio visualization bars
-            const audioBars = document.getElementById('audioBars');
-            const barCount = 30;
-            
-            for (let i = 0; i < barCount; i++) {
-                const bar = document.createElement('div');
-                bar.classList.add('bar');
-                bar.style.setProperty('--i', i);
-                audioBars.appendChild(bar);
-            }
-            
-            // Add matrix fall animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes matrixFall {
-                    0% { top: -100px; opacity: 1; }
-                    80% { opacity: 1; }
-                    100% { top: 100vh; opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Add interactive mouse effects
-            document.addEventListener('mousemove', (e) => {
-                const card = document.querySelector('.cyber-card');
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-            
-            // Add entrance animation for elements
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                    }
+
+            // Add touch feedback for contact items
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach(item => {
+                item.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
                 });
-            }, observerOptions);
-            
-            // Observe all contact items
-            document.querySelectorAll('.contact-item').forEach(item => {
-                observer.observe(item);
+                
+                item.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
             });
+
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        });
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            // Add a small delay to ensure proper rendering after orientation change
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100);
         });
     </script>
 </body>
