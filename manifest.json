@@ -1,0 +1,21 @@
+{
+  "name": "Daniel Gaudreault - Business Card",
+  "short_name": "Business Card",
+  "description": "Contact information for Daniel Gaudreault, providing packaging machinery and robotic solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#D32F2F",
+  "icons": [
+    {
+      "src": "images/capmatic.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/capmatic.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
