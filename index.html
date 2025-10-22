@@ -2,21 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Daniel Gaudreault - Capmatic Business Card">
-    <meta name="keywords" content="packaging machinery, robotic solutions, Montreal, Capmatic">
     <meta name="theme-color" content="#0a0a1a">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Daniel Gaudreault - Capmatic Business Card">
-    <meta property="og:description" content="Packaging Machinery & Robotic Solutions">
-    <meta property="og:image" content="images/capmatic.png">
-    <meta property="og:url" content="https://danielgaudreault.github.io/Cyber-Card/">
-    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Daniel Gaudreault - Capmatic</title>
     
     <!-- Icons -->
-    <link rel="icon" type="image/png" href="images/capmatic.png">
+    <link rel="icon" href="images/capmatic.png">
     <link rel="apple-touch-icon" href="images/capmatic.png">
     
     <!-- Styles & Fonts -->
@@ -28,7 +22,6 @@
             --primary-color: #00f7ff;
             --secondary-color: #ff00d6;
             --accent-color: #00ff88;
-            --warning-color: #ffaa00;
             --text-color: #ffffff;
             --dark-bg: #0a0a1a;
             --card-bg: rgba(20, 20, 50, 0.92);
@@ -50,7 +43,6 @@
 
         html {
             height: 100%;
-            overflow-x: hidden;
             background: var(--dark-bg);
         }
 
@@ -58,24 +50,56 @@
             font-family: var(--font-main);
             background: var(--dark-bg);
             min-height: 100vh;
-            height: 100%;
-            overflow-x: hidden;
             color: var(--text-color);
             line-height: 1.5;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            position: relative;
         }
 
-        /* App Background */
-        .app-background {
+        /* Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            font-family: var(--font-secondary);
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.5);
+        }
+
+        .install-prompt button {
+            background: var(--dark-bg);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .install-prompt button:active {
+            transform: scale(0.95);
+        }
+
+        /* Background Effects */
+        .cyber-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 247, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 214, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 247, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 214, 0.1) 0%, transparent 50%),
                 var(--dark-bg);
             z-index: -3;
         }
@@ -87,51 +111,15 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px;
+                linear-gradient(rgba(0, 247, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -2;
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
-        /* App Particles */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--primary-color);
-            animation: float 20s infinite linear;
-            opacity: 0;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) translateX(20px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* App Header */
-        .app-header {
+        /* Header */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
@@ -146,13 +134,13 @@
             border-bottom: 1px solid var(--primary-color);
         }
 
-        .app-logo {
+        .logo {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .app-icon {
+        .logo-img {
             width: 45px;
             height: 45px;
             border-radius: 12px;
@@ -161,7 +149,7 @@
             padding: 2px;
         }
 
-        .app-title {
+        .logo-text {
             font-family: var(--font-main);
             font-size: 1.2em;
             color: var(--primary-color);
@@ -169,12 +157,7 @@
             letter-spacing: 1px;
         }
 
-        .app-menu {
-            display: flex;
-            gap: 15px;
-        }
-
-        .app-btn {
+        .menu-btn {
             width: 40px;
             height: 40px;
             display: flex;
@@ -189,13 +172,13 @@
             transition: all 0.3s ease;
         }
 
-        .app-btn:active {
+        .menu-btn:active {
             transform: scale(0.9);
             background: rgba(0, 247, 255, 0.2);
         }
 
-        /* App Navigation */
-        .app-nav {
+        /* Navigation */
+        .nav {
             position: fixed;
             top: 70px;
             right: -100%;
@@ -210,7 +193,7 @@
             transition: right 0.3s ease;
         }
 
-        .app-nav.active {
+        .nav.active {
             right: 0;
         }
 
@@ -245,14 +228,8 @@
             transform: translateX(5px);
         }
 
-        .nav-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--primary-color);
-        }
-
-        /* Main App Content */
-        .app-content {
+        /* Main Content */
+        .main-content {
             padding: 80px var(--padding-medium) var(--padding-medium);
             display: flex;
             flex-direction: column;
@@ -260,8 +237,8 @@
             min-height: 100vh;
         }
 
-        /* App Card */
-        .app-card {
+        /* Card */
+        .card {
             width: 100%;
             max-width: 500px;
             background: var(--card-bg);
@@ -277,7 +254,7 @@
             margin-bottom: var(--padding-medium);
         }
 
-        .app-card::before {
+        .card::before {
             content: '';
             position: absolute;
             top: -2px;
@@ -291,7 +268,7 @@
             background-size: 400%;
         }
 
-        .app-card::after {
+        .card::after {
             content: '';
             position: absolute;
             top: 0;
@@ -325,14 +302,13 @@
             100% { top: 100%; }
         }
 
-        /* Profile Section */
-        .profile-section {
+        /* Profile */
+        .profile {
             text-align: center;
             margin-bottom: var(--padding-medium);
-            position: relative;
         }
 
-        .profile-image {
+        .profile-img {
             width: 120px;
             height: 120px;
             border-radius: 50%;
@@ -357,7 +333,6 @@
             background-clip: text;
             font-weight: 700;
             letter-spacing: 1.5px;
-            line-height: 1.2;
         }
 
         .profile-title {
@@ -376,7 +351,7 @@
             margin-bottom: var(--padding-medium);
         }
 
-        .contact-card {
+        .contact-item {
             display: flex;
             align-items: center;
             padding: 16px;
@@ -384,11 +359,9 @@
             border-radius: 12px;
             border-left: 4px solid var(--primary-color);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .contact-card:active {
+        .contact-item:active {
             transform: scale(0.98);
             background: rgba(0, 0, 0, 0.4);
         }
@@ -404,8 +377,6 @@
 
         .contact-info {
             flex: 1;
-            display: flex;
-            flex-direction: column;
         }
 
         .contact-label {
@@ -421,7 +392,6 @@
             text-decoration: none;
             font-family: var(--font-secondary);
             font-size: 1em;
-            word-break: break-word;
         }
 
         /* Quick Actions */
@@ -458,8 +428,8 @@
             color: var(--primary-color);
         }
 
-        /* Specialty Badge */
-        .specialty-badge {
+        /* Specialty */
+        .specialty {
             text-align: center;
             color: var(--secondary-color);
             font-size: 1.1em;
@@ -473,17 +443,16 @@
             letter-spacing: 1px;
         }
 
-        /* App Footer - Desktop Optimized */
-        .app-footer {
+        /* Footer */
+        .footer {
             background: rgba(10, 10, 30, 0.95);
             padding: var(--padding-medium);
             text-align: center;
             border-top: 1px solid var(--primary-color);
-            margin-top: auto;
             width: 100%;
         }
 
-        .app-copyright {
+        .copyright {
             color: var(--primary-color);
             font-family: var(--font-secondary);
             font-size: 0.85em;
@@ -496,7 +465,6 @@
             justify-content: center;
             gap: 8px;
             margin-bottom: var(--padding-medium);
-            flex-wrap: wrap;
         }
 
         .social-btn {
@@ -520,7 +488,7 @@
             color: var(--secondary-color);
         }
 
-        /* Desktop-specific styles */
+        /* Desktop Styles */
         @media (min-width: 1024px) {
             .social-grid {
                 gap: 6px;
@@ -532,7 +500,7 @@
                 font-size: 1.2em;
             }
             
-            .app-card {
+            .card {
                 max-width: 600px;
                 padding: 30px;
             }
@@ -547,7 +515,7 @@
             }
         }
 
-        /* Responsive Design */
+        /* Mobile Styles */
         @media (max-width: 768px) {
             :root {
                 --padding-small: 10px;
@@ -555,25 +523,20 @@
                 --padding-large: 20px;
             }
 
-            .app-card {
+            .card {
                 padding: var(--padding-medium);
-                border-radius: 16px;
             }
 
             .profile-name {
                 font-size: 1.7em;
             }
 
-            .contact-card {
+            .contact-item {
                 padding: 14px;
             }
 
             .quick-actions {
                 grid-template-columns: 1fr;
-            }
-            
-            .social-grid {
-                gap: 10px;
             }
         }
 
@@ -582,7 +545,7 @@
                 font-size: 1.5em;
             }
 
-            .contact-card {
+            .contact-item {
                 flex-direction: column;
                 text-align: center;
                 gap: 8px;
@@ -592,59 +555,33 @@
                 margin-right: 0;
                 margin-bottom: 5px;
             }
-
-            .social-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        /* Safe Area Support */
-        @supports(padding: max(0px)) {
-            .app-content {
-                padding-left: max(var(--padding-medium), env(safe-area-inset-left));
-                padding-right: max(var(--padding-medium), env(safe-area-inset-right));
-            }
-            
-            .app-footer {
-                padding-left: max(var(--padding-medium), env(safe-area-inset-left));
-                padding-right: max(var(--padding-medium), env(safe-area-inset-right));
-            }
-        }
-
-        /* Reduce Motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- App Background -->
-    <div class="app-background"></div>
-    <div class="cyber-grid"></div>
-    <div class="particles-container" id="particles"></div>
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <span>Install App</span>
+        <button id="installBtn">Install</button>
+    </div>
 
-    <!-- App Header -->
-    <header class="app-header">
-        <div class="app-logo">
-            <img src="images/capmatic.png" alt="Capmatic" class="app-icon" onerror="this.style.display='none'">
-            <div class="app-title">CAPMATIC</div>
+    <!-- Background -->
+    <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-img"></div>
+            <div class="logo-text">CAPMATIC</div>
         </div>
-        <div class="app-menu">
-            <div class="app-btn" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <div class="app-btn" id="shareButton">
-                <i class="fas fa-share-alt"></i>
-            </div>
+        <div class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
         </div>
     </header>
 
-    <!-- App Navigation -->
-    <nav class="app-nav" id="appNav">
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
         <div class="nav-section">
             <div class="nav-title">Quick Actions</div>
             <a href="tel:+15143220062" class="nav-item">
@@ -659,38 +596,38 @@
                 <i class="fas fa-globe"></i>
                 <span>Visit Website</span>
             </a>
-            <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" class="nav-item" target="_blank">
+            <a href="https://maps.app.goo.gl/" class="nav-item" target="_blank">
                 <i class="fas fa-map-marker-alt"></i>
                 <span>Get Directions</span>
             </a>
         </div>
         
         <div class="nav-section">
-            <div class="nav-title">Options</div>
-            <a href="#" class="nav-item" id="shareNavButton">
+            <div class="nav-title">App</div>
+            <a href="#" class="nav-item" id="installNavBtn">
+                <i class="fas fa-download"></i>
+                <span>Install App</span>
+            </a>
+            <a href="#" class="nav-item" id="shareBtn">
                 <i class="fas fa-share-alt"></i>
                 <span>Share Contact</span>
-            </a>
-            <a href="#" class="nav-item" id="themeButton">
-                <i class="fas fa-palette"></i>
-                <span>Change Theme</span>
             </a>
         </div>
     </nav>
 
-    <!-- Main App Content -->
-    <main class="app-content">
-        <article class="app-card">
+    <!-- Main Content -->
+    <main class="main-content">
+        <article class="card">
             <div class="scan-line"></div>
             
-            <div class="profile-section">
-                <img src="images/capmatic.png" alt="Daniel Gaudreault" class="profile-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNjAiIGZpbGw9InJnYmEoMjAsMjAsNTAsMC45KSIvPgo8dGV4dCB4PSI2MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzAwRjdGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkM8L3RleHQ+Cjwvc3ZnPgo='">
+            <div class="profile">
+                <div class="profile-img"></div>
                 <h1 class="profile-name">DANIEL GAUDREAULT</h1>
                 <div class="profile-title">Business Development</div>
             </div>
             
             <div class="contact-grid">
-                <div class="contact-card" onclick="handleAppAction('mailto:dgaudreault@capmatic.com')">
+                <div class="contact-item" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
@@ -700,7 +637,7 @@
                     </div>
                 </div>
                 
-                <div class="contact-card" onclick="handleAppAction('tel:+15143220062')">
+                <div class="contact-item" onclick="handleAction('tel:+15143220062')">
                     <div class="contact-icon">
                         <i class="fas fa-phone"></i>
                     </div>
@@ -710,7 +647,7 @@
                     </div>
                 </div>
                 
-                <div class="contact-card" onclick="handleAppAction('https://maps.app.goo.gl/')">
+                <div class="contact-item" onclick="handleAction('https://maps.app.goo.gl/')">
                     <div class="contact-icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
@@ -720,7 +657,7 @@
                     </div>
                 </div>
                 
-                <div class="contact-card" onclick="handleAppAction('http://www.capmatic.com')">
+                <div class="contact-item" onclick="handleAction('http://www.capmatic.com')">
                     <div class="contact-icon">
                         <i class="fas fa-globe"></i>
                     </div>
@@ -732,74 +669,111 @@
             </div>
             
             <div class="quick-actions">
-                <div class="action-btn" onclick="handleAppAction('tel:+15143220062')">
+                <div class="action-btn" onclick="handleAction('tel:+15143220062')">
                     <i class="fas fa-phone"></i>
                     <span>Call</span>
                 </div>
-                <div class="action-btn" onclick="handleAppAction('mailto:dgaudreault@capmatic.com')">
+                <div class="action-btn" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
                     <i class="fas fa-envelope"></i>
                     <span>Email</span>
                 </div>
-                <div class="action-btn" onclick="handleAppAction('https://maps.app.goo.gl/')">
+                <div class="action-btn" onclick="handleAction('https://maps.app.goo.gl/')">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Directions</span>
                 </div>
-                <div class="action-btn" onclick="handleAppAction('http://www.capmatic.com')">
+                <div class="action-btn" onclick="handleAction('http://www.capmatic.com')">
                     <i class="fas fa-globe"></i>
                     <span>Website</span>
                 </div>
             </div>
             
-            <div class="specialty-badge">
+            <div class="specialty">
                 PACKAGING MACHINERY & ROBOTIC SOLUTIONS
             </div>
         </article>
     </main>
 
-    <!-- App Footer -->
-    <footer class="app-footer">
-        <div class="app-copyright">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="copyright">
             © 2025 DANIEL GAUDREAULT - CAPMATIC LTD.
         </div>
         
         <div class="social-grid">
-            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-btn" aria-label="LinkedIn" onclick="showAppMessage(event, 'LinkedIn')">
+            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-btn" onclick="showAlert(event, 'LinkedIn')">
                 <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://www.facebook.com/dan.gaudreault/" class="social-btn" aria-label="Facebook" onclick="showAppMessage(event, 'Facebook')">
+            <a href="https://www.facebook.com/dan.gaudreault/" class="social-btn" onclick="showAlert(event, 'Facebook')">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="https://twitter.com/DGmovement87" class="social-btn" aria-label="Twitter" onclick="showAppMessage(event, 'Twitter')">
+            <a href="https://twitter.com/DGmovement87" class="social-btn" onclick="showAlert(event, 'Twitter')">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://github.com/DanielGaudreault" class="social-btn" aria-label="GitHub" onclick="showAppMessage(event, 'GitHub')">
+            <a href="https://github.com/DanielGaudreault" class="social-btn" onclick="showAlert(event, 'GitHub')">
                 <i class="fab fa-github"></i>
             </a>
         </div>
     </footer>
 
-    <!-- Clean JavaScript -->
     <script>
         // DOM Elements
-        const menuToggle = document.getElementById('menuToggle');
-        const appNav = document.getElementById('appNav');
-        const shareButton = document.getElementById('shareButton');
-        const shareNavButton = document.getElementById('shareNavButton');
-        const themeButton = document.getElementById('themeButton');
+        const menuBtn = document.getElementById('menuBtn');
+        const nav = document.getElementById('nav');
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const installNavBtn = document.getElementById('installNavBtn');
+        const shareBtn = document.getElementById('shareBtn');
+
+        let deferredPrompt;
 
         // Menu Toggle
-        menuToggle.addEventListener('click', function() {
-            appNav.classList.toggle('active');
-            this.querySelector('i').className = appNav.classList.contains('active') 
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            menuBtn.querySelector('i').className = nav.classList.contains('active') 
                 ? 'fas fa-times' 
                 : 'fas fa-bars';
         });
 
+        // PWA Installation
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                installPrompt.style.display = 'flex';
+            }, 3000);
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installPrompt.style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        installNavBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installPrompt.style.display = 'none';
+                    nav.classList.remove('active');
+                    menuBtn.querySelector('i').className = 'fas fa-bars';
+                }
+                deferredPrompt = null;
+            }
+        });
+
         // Share Functionality
-        async function shareContact() {
+        shareBtn.addEventListener('click', async () => {
             const shareData = {
                 title: 'Daniel Gaudreault - Capmatic',
-                text: 'Packaging Machinery & Robotic Solutions\n\nContact Information:\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062 Ext 231',
+                text: 'Packaging Machinery & Robotic Solutions\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062',
                 url: window.location.href
             };
 
@@ -807,122 +781,70 @@
                 if (navigator.share) {
                     await navigator.share(shareData);
                 } else {
-                    // Fallback: copy to clipboard
                     await navigator.clipboard.writeText(shareData.text);
-                    showAppAlert('Success', 'Contact info copied to clipboard!', 'success');
+                    showAlert(null, 'Contact info copied to clipboard!', 'success');
                 }
             } catch (err) {
-                console.log('Error sharing:', err);
+                console.log('Share failed:', err);
             }
-        }
-
-        shareButton.addEventListener('click', shareContact);
-        shareNavButton.addEventListener('click', function() {
-            shareContact();
-            appNav.classList.remove('active');
-            menuToggle.querySelector('i').className = 'fas fa-bars';
+            
+            nav.classList.remove('active');
+            menuBtn.querySelector('i').className = 'fas fa-bars';
         });
 
-        // Theme Toggle
-        let currentTheme = 'cyber';
-        themeButton.addEventListener('click', function() {
-            const themes = ['cyber', 'professional', 'minimal'];
-            const themeColors = {
-                cyber: { primary: '#00f7ff', secondary: '#ff00d6', accent: '#00ff88' },
-                professional: { primary: '#0066cc', secondary: '#ff6600', accent: '#00aa66' },
-                minimal: { primary: '#ffffff', secondary: '#cccccc', accent: '#888888' }
-            };
-
-            currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
-            const colors = themeColors[currentTheme];
-
-            document.documentElement.style.setProperty('--primary-color', colors.primary);
-            document.documentElement.style.setProperty('--secondary-color', colors.secondary);
-            document.documentElement.style.setProperty('--accent-color', colors.accent);
-
-            appNav.classList.remove('active');
-            menuToggle.querySelector('i').className = 'fas fa-bars';
-        });
-
-        // App Actions
-        function handleAppAction(url) {
+        // Action Handler
+        function handleAction(url) {
             if (url.startsWith('tel:') || url.startsWith('mailto:')) {
                 window.location.href = url;
-            } else if (url.startsWith('http')) {
+            } else {
                 window.open(url, '_blank');
             }
         }
 
-        // Enhanced App Alerts
-        function showAppMessage(event, platform) {
-            event.preventDefault();
-            event.stopPropagation();
+        // Alert Function
+        function showAlert(event, platform, type = 'info') {
+            if (event) event.preventDefault();
             
-            Swal.fire({
-                title: `<span style="color: var(--primary-color);">${platform}</span>`,
-                html: `<p style="color: white; font-size: 16px;">Opening ${platform}</p>`,
-                icon: 'info',
-                background: 'rgba(20, 20, 50, 0.95)',
-                showCancelButton: true,
-                confirmButtonText: 'Open',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: 'var(--primary-color)',
-                cancelButtonColor: 'var(--secondary-color)'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open(event.target.closest('a').href, '_blank');
-                }
-            });
-        }
-
-        function showAppAlert(title, text, icon) {
-            Swal.fire({
-                title,
-                text,
-                icon,
-                background: 'rgba(20, 20, 50, 0.95)',
-                confirmButtonColor: 'var(--primary-color)'
-            });
-        }
-
-        // Create particles
-        document.addEventListener('DOMContentLoaded', function() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 15 : 25;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const left = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = 15 + Math.random() * 20;
-                const size = 1 + Math.random() * 3;
-                
-                particle.style.left = `${left}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = color;
-                
-                particlesContainer.appendChild(particle);
+            if (type === 'success') {
+                Swal.fire({
+                    title: 'Success!',
+                    text: platform,
+                    icon: 'success',
+                    background: 'rgba(20, 20, 50, 0.95)',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+            } else {
+                Swal.fire({
+                    title: `<span style="color: var(--primary-color);">${platform}</span>`,
+                    html: `<p style="color: white;">Opening ${platform}</p>`,
+                    icon: 'info',
+                    background: 'rgba(20, 20, 50, 0.95)',
+                    showCancelButton: true,
+                    confirmButtonText: 'Open',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: 'var(--primary-color)',
+                    cancelButtonColor: 'var(--secondary-color)'
+                }).then((result) => {
+                    if (result.isConfirmed && event) {
+                        window.open(event.target.closest('a').href, '_blank');
+                    }
+                });
             }
+        }
 
-            // Add touch feedback
-            const touchElements = document.querySelectorAll('.contact-card, .action-btn, .social-btn');
-            touchElements.forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-                
-                element.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !nav.contains(e.target)) {
+                nav.classList.remove('active');
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // Check if already installed
+        window.addEventListener('load', () => {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                installPrompt.style.display = 'none';
+            }
         });
     </script>
 </body>
