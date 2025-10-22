@@ -21,7 +21,6 @@
     <!-- Icons for PWA -->
     <link rel="icon" type="image/png" href="images/capmatic.png">
     <link rel="apple-touch-icon" href="images/capmatic.png">
-    <link rel="manifest" href="manifest.json">
     
     <!-- Styles & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -510,7 +509,7 @@
             letter-spacing: 1px;
         }
 
-        /* App Footer */
+        /* App Footer - Desktop Optimized */
         .app-footer {
             background: rgba(10, 10, 30, 0.95);
             padding: var(--padding-medium);
@@ -529,10 +528,11 @@
         }
 
         .social-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 8px; /* Reduced gap for desktop */
             margin-bottom: var(--padding-medium);
+            flex-wrap: wrap;
         }
 
         .social-btn {
@@ -554,6 +554,33 @@
             transform: scale(0.9);
             border-color: var(--secondary-color);
             color: var(--secondary-color);
+        }
+
+        /* Desktop-specific styles */
+        @media (min-width: 1024px) {
+            .social-grid {
+                gap: 6px; /* Even tighter on desktop */
+            }
+            
+            .social-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2em;
+            }
+            
+            .app-card {
+                max-width: 600px;
+                padding: 30px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         /* Offline Indicator */
@@ -595,6 +622,10 @@
 
             .quick-actions {
                 grid-template-columns: 1fr;
+            }
+            
+            .social-grid {
+                gap: 10px; /* Slightly more gap on mobile */
             }
         }
 
@@ -662,7 +693,7 @@
     <!-- App Header -->
     <header class="app-header">
         <div class="app-logo">
-            <img src="images/capmatic.png" alt="Capmatic" class="app-icon">
+            <img src="images/capmatic.png" alt="Capmatic" class="app-icon" onerror="this.style.display='none'">
             <div class="app-title">CAPMATIC</div>
         </div>
         <div class="app-menu">
@@ -699,7 +730,7 @@
         
         <div class="nav-section">
             <div class="nav-title">App</div>
-            <a href="#" class="nav-item" id="installNavButton">
+            <a href="#" class="nav-item" id="installNavButton" style="display: none;">
                 <i class="fas fa-download"></i>
                 <span>Install App</span>
             </a>
@@ -720,7 +751,7 @@
             <div class="scan-line"></div>
             
             <div class="profile-section">
-                <img src="images/capmatic.png" alt="Daniel Gaudreault" class="profile-image">
+                <img src="images/capmatic.png" alt="Daniel Gaudreault" class="profile-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNjAiIGZpbGw9InJnYmEoMjAsMjAsNTAsMC45KSIvPgo8dGV4dCB4PSI2MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzAwRjdGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkM8L3RleHQ+Cjwvc3ZnPgo='">
                 <h1 class="profile-name">DANIEL GAUDREAULT</h1>
                 <div class="profile-title">Business Development</div>
             </div>
@@ -814,52 +845,6 @@
         </div>
     </footer>
 
-    <!-- Service Worker Registration -->
-    <script>
-        // Register Service Worker for PWA functionality
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
-        }
-
-        // Create manifest.json content
-        const manifest = {
-            "name": "Daniel Gaudreault - Capmatic",
-            "short_name": "Capmatic Card",
-            "description": "Business card for Daniel Gaudreault - Packaging Machinery & Robotic Solutions",
-            "start_url": "/",
-            "display": "standalone",
-            "background_color": "#0a0a1a",
-            "theme_color": "#00f7ff",
-            "orientation": "portrait",
-            "icons": [
-                {
-                    "src": "images/capmatic.png",
-                    "sizes": "192x192",
-                    "type": "image/png"
-                },
-                {
-                    "src": "images/capmatic.png",
-                    "sizes": "512x512",
-                    "type": "image/png"
-                }
-            ]
-        };
-
-        // Create manifest link dynamically
-        const manifestLink = document.createElement('link');
-        manifestLink.rel = 'manifest';
-        manifestLink.href = 'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
-        document.head.appendChild(manifestLink);
-    </script>
-
     <!-- App JavaScript -->
     <script>
         // App Variables
@@ -882,8 +867,6 @@
             e.preventDefault();
             deferredPrompt = e;
             installBanner.style.display = 'flex';
-            
-            // Add to nav
             installNavButton.style.display = 'flex';
         });
 
@@ -904,7 +887,7 @@
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
                     installBanner.style.display = 'none';
-                appNav.classList.remove('active');
+                    appNav.classList.remove('active');
                     menuToggle.querySelector('i').className = 'fas fa-bars';
                 }
                 deferredPrompt = null;
@@ -990,12 +973,7 @@
                 confirmButtonText: 'Open',
                 cancelButtonText: 'Cancel',
                 confirmButtonColor: 'var(--primary-color)',
-                cancelButtonColor: 'var(--secondary-color)',
-                customClass: {
-                    popup: 'app-swal',
-                    confirmButton: 'app-confirm-btn',
-                    cancelButton: 'app-cancel-btn'
-                }
+                cancelButtonColor: 'var(--secondary-color)'
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.open(event.target.closest('a').href, '_blank');
@@ -1009,10 +987,7 @@
                 text,
                 icon,
                 background: 'rgba(20, 20, 50, 0.95)',
-                confirmButtonColor: 'var(--primary-color)',
-                customClass: {
-                    popup: 'app-swal'
-                }
+                confirmButtonColor: 'var(--primary-color)'
             });
         }
 
@@ -1098,6 +1073,11 @@
                 }, 3000);
             }
         });
+
+        // Simple Service Worker Registration (optional)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
     </script>
 </body>
 </html>
