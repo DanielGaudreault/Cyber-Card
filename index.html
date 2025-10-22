@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Daniel Gaudreault - Capmatic Business Card PWA">
+    <meta name="description" content="Daniel Gaudreault - Capmatic Business Card">
     <meta name="keywords" content="packaging machinery, robotic solutions, Montreal, Capmatic">
     <meta name="theme-color" content="#0a0a1a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Daniel Gaudreault">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Daniel Gaudreault - Capmatic Business Card">
@@ -18,7 +15,7 @@
     
     <title>Daniel Gaudreault - Capmatic</title>
     
-    <!-- Icons for PWA -->
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="images/capmatic.png">
     <link rel="apple-touch-icon" href="images/capmatic.png">
     
@@ -67,39 +64,6 @@
             line-height: 1.5;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
             position: relative;
-        }
-
-        /* App Install Banner */
-        .install-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: var(--dark-bg);
-            padding: 12px var(--padding-medium);
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10000;
-            font-family: var(--font-secondary);
-            font-weight: 600;
-        }
-
-        .install-banner button {
-            background: var(--dark-bg);
-            color: var(--primary-color);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-family: var(--font-main);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .install-banner button:active {
-            transform: scale(0.95);
         }
 
         /* App Background */
@@ -530,7 +494,7 @@
         .social-grid {
             display: flex;
             justify-content: center;
-            gap: 8px; /* Reduced gap for desktop */
+            gap: 8px;
             margin-bottom: var(--padding-medium);
             flex-wrap: wrap;
         }
@@ -559,7 +523,7 @@
         /* Desktop-specific styles */
         @media (min-width: 1024px) {
             .social-grid {
-                gap: 6px; /* Even tighter on desktop */
+                gap: 6px;
             }
             
             .social-btn {
@@ -581,22 +545,6 @@
             .quick-actions {
                 grid-template-columns: repeat(4, 1fr);
             }
-        }
-
-        /* Offline Indicator */
-        .offline-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--warning-color);
-            color: var(--dark-bg);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-family: var(--font-secondary);
-            font-weight: 600;
-            display: none;
-            z-index: 1000;
         }
 
         /* Responsive Design */
@@ -625,7 +573,7 @@
             }
             
             .social-grid {
-                gap: 10px; /* Slightly more gap on mobile */
+                gap: 10px;
             }
         }
 
@@ -674,21 +622,10 @@
     </style>
 </head>
 <body>
-    <!-- Install Banner -->
-    <div class="install-banner" id="installBanner">
-        <span>Install App</span>
-        <button id="installButton">Install</button>
-    </div>
-
     <!-- App Background -->
     <div class="app-background"></div>
     <div class="cyber-grid"></div>
     <div class="particles-container" id="particles"></div>
-
-    <!-- Offline Indicator -->
-    <div class="offline-indicator" id="offlineIndicator">
-        <i class="fas fa-wifi-slash"></i> Offline
-    </div>
 
     <!-- App Header -->
     <header class="app-header">
@@ -729,11 +666,7 @@
         </div>
         
         <div class="nav-section">
-            <div class="nav-title">App</div>
-            <a href="#" class="nav-item" id="installNavButton" style="display: none;">
-                <i class="fas fa-download"></i>
-                <span>Install App</span>
-            </a>
+            <div class="nav-title">Options</div>
             <a href="#" class="nav-item" id="shareNavButton">
                 <i class="fas fa-share-alt"></i>
                 <span>Share Contact</span>
@@ -845,54 +778,14 @@
         </div>
     </footer>
 
-    <!-- App JavaScript -->
+    <!-- Clean JavaScript -->
     <script>
-        // App Variables
-        let deferredPrompt;
-        let currentTheme = 'cyber';
-
         // DOM Elements
-        const installBanner = document.getElementById('installBanner');
-        const installButton = document.getElementById('installButton');
-        const installNavButton = document.getElementById('installNavButton');
         const menuToggle = document.getElementById('menuToggle');
         const appNav = document.getElementById('appNav');
         const shareButton = document.getElementById('shareButton');
         const shareNavButton = document.getElementById('shareNavButton');
         const themeButton = document.getElementById('themeButton');
-        const offlineIndicator = document.getElementById('offlineIndicator');
-
-        // PWA Installation
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBanner.style.display = 'flex';
-            installNavButton.style.display = 'flex';
-        });
-
-        installButton.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installBanner.style.display = 'none';
-                }
-                deferredPrompt = null;
-            }
-        });
-
-        installNavButton.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installBanner.style.display = 'none';
-                    appNav.classList.remove('active');
-                    menuToggle.querySelector('i').className = 'fas fa-bars';
-                }
-                deferredPrompt = null;
-            }
-        });
 
         // Menu Toggle
         menuToggle.addEventListener('click', function() {
@@ -931,6 +824,7 @@
         });
 
         // Theme Toggle
+        let currentTheme = 'cyber';
         themeButton.addEventListener('click', function() {
             const themes = ['cyber', 'professional', 'minimal'];
             const themeColors = {
@@ -991,16 +885,7 @@
             });
         }
 
-        // Offline Detection
-        window.addEventListener('online', () => {
-            offlineIndicator.style.display = 'none';
-        });
-
-        window.addEventListener('offline', () => {
-            offlineIndicator.style.display = 'block';
-        });
-
-        // Create mobile-optimized particles
+        // Create particles
         document.addEventListener('DOMContentLoaded', function() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth < 768 ? 15 : 25;
@@ -1038,46 +923,7 @@
                     this.style.transform = 'scale(1)';
                 });
             });
-
-            // Prevent zoom on double tap
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function (event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-
-            // Handle orientation changes
-            window.addEventListener('orientationchange', function() {
-                setTimeout(() => {
-                    window.scrollTo(0, 0);
-                }, 100);
-            });
-
-            // Check if app is installed
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('Running as PWA');
-                installBanner.style.display = 'none';
-                installNavButton.style.display = 'none';
-            }
         });
-
-        // Add to Home Screen prompt for iOS
-        window.addEventListener('load', function() {
-            if (navigator.standalone === false) {
-                // iOS - show install prompt
-                setTimeout(() => {
-                    showAppAlert('Install App', 'Add this app to your home screen for quick access!', 'info');
-                }, 3000);
-            }
-        });
-
-        // Simple Service Worker Registration (optional)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(console.error);
-        }
     </script>
 </body>
 </html>
