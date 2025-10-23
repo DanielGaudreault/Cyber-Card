@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PWA Debug - Capmatic</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        .check { margin: 10px 0; padding: 10px; background: white; border-radius: 5px; }
+        .pass { color: green; }
+        .fail { color: red; }
+        .warning { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>PWA Installation Debug</h1>
+    
+    <div id="checks">
+        <div class="check" id="manifest">Checking manifest.json...</div>
+        <div class="check" id="serviceWorker">Checking service worker...</div>
+        <div class="check" id="icons">Checking icons...</div>
+        <div class="check" id="https">Checking HTTPS...</div>
+        <div class="check" id="installable">Checking installability...</div>
+    </div>
+
+    <script>
+        async function runChecks() {
+            // Check manifest
+            try {
+                const response = await fetch('/manifest.json');
+                const manifest = await response.json();
+                document.getElementById('manifest').innerHTML = 
+                    `✅ Manifest loaded: ${manifest.name}`;
+                document.getElementById('manifest').className = 'check pass';
+            } catch (e) {
+                document.getElementById('manifest').innerHTML = 
+                    `❌ Manifest error: ${e.message}`;
+                document.getElementById('manifest').className = 'check fail';
+            }
+
+            // Check service worker
+            if ('serviceWorker' in navigator) {
+                document.getElementById('serviceWorker').innerHTML = 
+                    '✅ Service Worker supported';
+                document.getElementById('serviceWorker').className = 'check pass';
+            } else {
+                document.getElementById('serviceWorker').innerHTML = 
+                    '❌ Service Worker not supported';
+                document.getElementById('serviceWorker').className = 'check fail';
+            }
+
+            // Check icons
+            try {
+                const iconResponse = await fetch('/images/capmatic.png');
+                if (iconResponse.ok) {
+                    document.getElementById('icons').innerHTML = 
+                        '✅ App icon found';
+                    document.getElementById('icons').className = 'check pass';
+                } else {
+                    document.getElementById('icons').innerHTML = 
+                        '❌ App icon not found';
+                    document.getElementById('icons').className = 'check fail';
+                }
+            } catch (e) {
+                document.getElementById('icons').innerHTML = 
+                    `❌ Icon error: ${e.message}`;
+                document.getElementById('icons').className = 'check fail';
+            }
+
+            // Check HTTPS
+            if (location.protocol === 'https:') {
+                document.getElementById('https').innerHTML = 
+                    '✅ HTTPS enabled (required for production)';
+                document.getElementById('https').className = 'check pass';
+            } else {
+                document.getElementById('https').innerHTML = 
+                    '⚠️ HTTP - PWA installation may be limited (HTTPS required for production)';
+                document.getElementById('https').className = 'check warning';
+            }
+
+            // Check installability
+            window.addEventListener('beforeinstallprompt', (e) => {
+                document.getElementById('installable').innerHTML = 
+                    '✅ PWA is installable';
+                document.getElementById('installable').className = 'check pass';
+            });
+
+            setTimeout(() => {
+                if (document.getElementById('installable').className === 'check') {
+                    document.getElementById('installable').innerHTML = 
+                        '❌ PWA may not be installable (check console for errors)';
+                    document.getElementById('installable').className = 'check fail';
+                }
+            }, 3000);
+        }
+
+        runChecks();
+    </script>
+</body>
+</html>
