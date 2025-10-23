@@ -14,12 +14,17 @@ def serve_index():
 @app.route('/manifest.json')
 def serve_manifest():
     """Serve the PWA manifest with correct headers"""
-    return send_file('manifest.json', mimetype='application/manifest+json')
+    response = send_file('manifest.json')
+    response.headers['Content-Type'] = 'application/manifest+json'
+    return response
 
 @app.route('/service-worker.js')
 def serve_service_worker():
     """Serve the service worker with correct headers"""
-    return send_file('service-worker.js', mimetype='application/javascript')
+    response = send_file('service-worker.js')
+    response.headers['Content-Type'] = 'application/javascript'
+    response.headers['Service-Worker-Allowed'] = '/'
+    return response
 
 @app.route('/images/<path:filename>')
 def serve_images(filename):
@@ -35,7 +40,7 @@ def health_check():
     return jsonify({
         "status": "healthy",
         "app": "Capmatic Business Card PWA",
-        "version": "2.0.0"
+        "version": "3.0.0"
     })
 
 @app.route('/offline')
@@ -63,6 +68,15 @@ def offline_page():
                 margin-bottom: 20px;
                 color: #00f7ff;
             }
+            button {
+                background: #00f7ff;
+                color: #0a0a1a;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -78,11 +92,9 @@ def offline_page():
     """
     return render_template_string(offline_html)
 
-# Add this to ensure proper MIME types for PWA
+# Add CORS headers for PWA
 @app.after_request
 def add_header(response):
-    """Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes."""
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
