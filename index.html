@@ -10,7 +10,11 @@
     <meta name="apple-mobile-web-app-title" content="Daniel Gaudreault">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Daniel%20Gaudreault%20-%20Capmatic%22%2C%22short_name%22%3A%22Capmatic%22%2C%22description%22%3A%22Business%20card%20for%20Daniel%20Gaudreault%20-%20Packaging%20Machinery%20%26%20Robotic%20Solutions%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a1a%22%2C%22theme_color%22%3A%22%2300f7ff%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" href="images/capmatic.png">
+    <link rel="apple-touch-icon" href="images/capmatic.png">
     
     <title>Daniel Gaudreault - Capmatic</title>
     
@@ -29,9 +33,9 @@
             --padding-small: 12px;
             --padding-medium: 20px;
             --padding-large: 25px;
-            --font-main: 'Arial', sans-serif;
-            --font-secondary: 'Arial', sans-serif;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -46,7 +50,7 @@
         }
 
         body {
-            font-family: var(--font-main);
+            font-family: 'Orbitron', sans-serif;
             background: var(--dark-bg);
             min-height: 100vh;
             color: var(--text-color);
@@ -69,7 +73,7 @@
             align-items: center;
             gap: 15px;
             z-index: 10000;
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-weight: 600;
             box-shadow: 0 5px 25px rgba(0, 247, 255, 0.6);
             border: 2px solid var(--primary-color);
@@ -81,7 +85,7 @@
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
-            font-family: var(--font-main);
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -109,6 +113,62 @@
             z-index: -3;
         }
 
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            opacity: 0.3;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Header */
         .header {
             position: fixed;
@@ -121,7 +181,9 @@
             justify-content: space-between;
             align-items: center;
             background: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
         }
 
         .logo {
@@ -137,20 +199,26 @@
             border-radius: 12px;
             border: 2px solid var(--primary-color);
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--dark-bg);
-            font-weight: bold;
-            font-size: 1.2em;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+            object-fit: cover;
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: 0 0 10px var(--primary-color); }
+            100% { box-shadow: 0 0 20px var(--secondary-color); }
         }
 
         .logo-text {
-            font-family: var(--font-main);
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.3em;
             color: var(--primary-color);
             font-weight: 700;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-color);
         }
 
         .menu-btn {
@@ -166,6 +234,8 @@
             font-size: 1.2em;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .menu-btn:active {
@@ -180,12 +250,14 @@
             right: -100%;
             width: 300px;
             background: rgba(20, 20, 50, 0.98);
+            backdrop-filter: blur(30px);
             border-left: 2px solid var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             border-radius: 0 0 0 25px;
             padding: var(--padding-large);
             z-index: 999;
             transition: right 0.4s ease;
+            box-shadow: -5px 5px 30px rgba(0, 247, 255, 0.2);
         }
 
         .nav.active {
@@ -198,12 +270,13 @@
 
         .nav-title {
             color: var(--accent-color);
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-size: 1em;
             font-weight: 700;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 5px var(--accent-color);
         }
 
         .nav-item {
@@ -231,6 +304,12 @@
             text-align: center;
             color: var(--primary-color);
             font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:active i {
+            transform: scale(1.2);
+            color: var(--accent-color);
         }
 
         /* Main Content */
@@ -251,9 +330,44 @@
             padding: var(--padding-large);
             position: relative;
             overflow: hidden;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 40px rgba(0, 247, 255, 0.5);
+            backdrop-filter: blur(25px);
+            border: 1px solid transparent;
+            box-shadow: 
+                0 0 40px rgba(0, 247, 255, 0.5),
+                inset 0 0 30px rgba(0, 247, 255, 0.1);
             margin-bottom: var(--padding-medium);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+            z-index: -1;
+            border-radius: 28px;
+            animation: borderGlow 3s linear infinite;
+            background-size: 400%;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-bg);
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
         }
 
         .scan-line {
@@ -265,6 +379,7 @@
             background: linear-gradient(90deg, transparent, var(--primary-color), var(--accent-color), var(--primary-color), transparent);
             animation: scan 3s linear infinite;
             z-index: 2;
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         @keyframes scan {
@@ -319,15 +434,28 @@
             width: 140px;
             height: 140px;
             border-radius: 50%;
-            border: 4px solid var(--primary-color);
+            border: 4px solid transparent;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            padding: 4px;
             margin: 0 auto 20px;
-            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
-            font-size: 2em;
-            font-weight: bold;
+            animation: profileGlow 3s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+            object-fit: cover;
+        }
+
+        @keyframes profileGlow {
+            0% { 
+                box-shadow: 0 0 25px var(--primary-color),
+                           inset 0 0 15px rgba(0, 247, 255, 0.3);
+            }
+            100% { 
+                box-shadow: 0 0 35px var(--secondary-color),
+                           inset 0 0 20px rgba(255, 0, 214, 0.3);
+            }
         }
 
         .profile-name {
@@ -339,14 +467,16 @@
             background-clip: text;
             font-weight: 900;
             letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
         }
 
         .profile-title {
             color: var(--secondary-color);
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-size: 1.3em;
             font-weight: 600;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 214, 0.5);
         }
 
         /* Contact Grid */
@@ -365,6 +495,9 @@
             border-radius: 15px;
             border-left: 5px solid var(--primary-color);
             transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .contact-item:active {
@@ -379,6 +512,14 @@
             width: 40px;
             text-align: center;
             margin-right: 20px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .contact-item:active .contact-icon {
+            transform: scale(1.3) rotate(10deg);
+            color: var(--accent-color);
         }
 
         .contact-info {
@@ -387,7 +528,7 @@
 
         .contact-label {
             color: var(--accent-color);
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
             font-size: 1em;
             margin-bottom: 8px;
@@ -397,8 +538,13 @@
         .contact-value {
             color: var(--text-color);
             text-decoration: none;
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-value:active {
+            color: var(--secondary-color);
         }
 
         /* Quick Actions */
@@ -415,7 +561,7 @@
             border: 2px solid var(--primary-color);
             border-radius: 15px;
             color: var(--text-color);
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-size: 1em;
             text-align: center;
             transition: all 0.4s ease;
@@ -435,6 +581,12 @@
         .action-btn i {
             font-size: 1.5em;
             color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:active i {
+            transform: scale(1.2);
+            color: var(--accent-color);
         }
 
         /* Specialty */
@@ -442,7 +594,7 @@
             text-align: center;
             color: transparent;
             font-size: 1.3em;
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
             padding: 15px 25px;
             border: 2px solid transparent;
@@ -452,6 +604,8 @@
             background-clip: text;
             margin-top: var(--padding-medium);
             letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
         }
 
         /* Footer */
@@ -465,7 +619,7 @@
 
         .copyright {
             color: var(--primary-color);
-            font-family: var(--font-secondary);
+            font-family: 'Rajdhani', sans-serif;
             font-size: 0.9em;
             margin-bottom: var(--padding-medium);
             letter-spacing: 1px;
@@ -499,6 +653,17 @@
             color: var(--secondary-color);
         }
 
+        /* Image fallback styles */
+        .image-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .card {
@@ -512,9 +677,6 @@
             }
             .quick-actions {
                 grid-template-columns: 1fr;
-            }
-            .nav {
-                width: 280px;
             }
         }
 
@@ -544,11 +706,13 @@
 
     <!-- Background -->
     <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+    <div class="particles" id="particles"></div>
 
     <!-- Header -->
     <header class="header">
         <div class="logo">
-            <div class="logo-img">C</div>
+            <img src="images/capmatic.png" alt="Capmatic" class="logo-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'logo-img image-fallback\'>C</div>'">
             <div class="logo-text">CAPMATIC</div>
         </div>
         <div class="menu-btn" id="menuBtn">
@@ -605,7 +769,7 @@
             <div class="corner corner-br"></div>
             
             <div class="profile">
-                <div class="profile-img">DG</div>
+                <img src="images/logo.png" alt="Daniel Gaudreault" class="profile-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'profile-img image-fallback\'>DG</div>'">
                 <h1 class="profile-name">DANIEL GAUDREAULT</h1>
                 <div class="profile-title">CYBER CARD</div>
             </div>
@@ -712,6 +876,34 @@
         let deferredPrompt;
         let currentTheme = 'cyber';
 
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 10 + Math.random() * 20;
+                const size = 2 + Math.random() * 4;
+                
+                particle.style.left = `${left}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         // Menu Toggle
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -729,9 +921,9 @@
             }
         });
 
-        // PWA Installation
+        // PWA Installation - FIXED
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('PWA install prompt triggered');
+            console.log('✅ PWA install prompt triggered');
             e.preventDefault();
             deferredPrompt = e;
             installPrompt.style.display = 'flex';
@@ -739,11 +931,15 @@
 
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
+                console.log('🔄 Starting installation...');
                 deferredPrompt.prompt();
+                
                 const { outcome } = await deferredPrompt.userChoice;
+                console.log('📱 User response:', outcome);
+                
                 if (outcome === 'accepted') {
                     installPrompt.style.display = 'none';
-                    showAlert('App installed successfully!', 'success');
+                    showAlert('🎉 App installed successfully!', 'success');
                 }
                 deferredPrompt = null;
             }
@@ -753,15 +949,16 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
+                
                 if (outcome === 'accepted') {
                     installPrompt.style.display = 'none';
                     nav.classList.remove('active');
                     menuBtn.querySelector('i').className = 'fas fa-bars';
-                    showAlert('App installed successfully!', 'success');
+                    showAlert('🎉 App installed successfully!', 'success');
                 }
                 deferredPrompt = null;
             } else {
-                showAlert('Installation not available or app already installed.', 'info');
+                showAlert('Installation not available. Try refreshing the page.', 'info');
                 nav.classList.remove('active');
                 menuBtn.querySelector('i').className = 'fas fa-bars';
             }
@@ -858,14 +1055,18 @@
             }
         }
 
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Create a simple service worker inline
+        // Service Worker Registration - FIXED
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
                 const swContent = `
-                    const CACHE_NAME = 'capmatic-v1';
+                    const CACHE_NAME = 'capmatic-pwa-v1';
                     self.addEventListener('install', (event) => {
-                        console.log('Service Worker installed');
+                        console.log('✅ Service Worker installed');
+                        self.skipWaiting();
+                    });
+                    self.addEventListener('activate', (event) => {
+                        console.log('✅ Service Worker activated');
+                        self.clients.claim();
                     });
                     self.addEventListener('fetch', (event) => {
                         event.respondWith(fetch(event.request));
@@ -875,22 +1076,31 @@
                 const blob = new Blob([swContent], { type: 'application/javascript' });
                 const swUrl = URL.createObjectURL(blob);
                 
-                navigator.serviceWorker.register(swUrl)
+                navigator.serviceWorker.register(swUrl, { scope: './' })
                     .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
+                        console.log('✅ ServiceWorker registration successful');
                     })
                     .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
+                        console.log('❌ ServiceWorker registration failed: ', error);
                     });
-            });
+            }
         }
 
-        // Check if already installed
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installPrompt.style.display = 'none';
-        }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Initializing Capmatic PWA...');
+            
+            createParticles();
+            registerServiceWorker();
+            
+            // Check if already installed
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('✅ App is running as PWA');
+                installPrompt.style.display = 'none';
+            }
 
-        console.log('🚀 Capmatic Business Card loaded successfully!');
+            console.log('✅ Capmatic PWA initialized successfully');
+        });
     </script>
 </body>
 </html>
