@@ -2,116 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Daniel Gaudreault's business card with contact info for packaging machinery solutions.">
-    <meta name="theme-color" content="#D32F2F">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- Icons -->
-    <link rel="icon" type="image/png" href="/images/capmatic.png">
-    <link rel="apple-touch-icon" href="/images/capmatic.png">
-    
+    <meta name="keywords" content="packaging machinery, robotic solutions, Montreal, Capmatic">
+    <meta property="og:title" content="Daniel Gaudreault - Business Card">
+    <meta property="og:description" content="Contact information for Daniel Gaudreault, providing packaging machinery and robotic solutions.">
+    <meta property="og:image" content="images/capmatic.png">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daniel Gaudreault - Business Card">
+    <meta name="twitter:description" content="Contact information for Daniel Gaudreault, providing packaging machinery and robotic solutions.">
+    <meta name="twitter:image" content="images/capmatic.png">
     <title>Daniel Gaudreault - Business Card</title>
-    
-    <!-- Styles & Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <link rel="icon" type="image/png" href="images/capmatic.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/capmatic.png">
+
     <style>
         :root {
-            --primary-color: #D32F2F;
-            --secondary-color: #FFC107;
+            --primary-color: #D32F2F; /* A deeper red */
+            --secondary-color: #FFC107; /* Gold for accents */
             --text-color: white;
-            --background-color: rgba(0, 0, 0, 0.85);
+            --background-color: rgba(0, 0, 0, 0.8);
             --padding-small: 10px;
             --padding-medium: 20px;
             --padding-large: 30px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --font-size-base: 16px;
         }
 
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #000000, #1a1a1a);
+            background-image: url('images/1920_1080_Black.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             line-height: 1.6;
-            color: var(--text-color);
+            font-size: var(--font-size-base);
         }
 
-        /* Install Prompt */
-        .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 15px 25px;
-            border-radius: 25px;
-            display: none;
-            align-items: center;
-            gap: 15px;
-            z-index: 10000;
-            font-weight: 600;
-            box-shadow: 0 5px 25px rgba(211, 47, 47, 0.6);
-            border: 2px solid var(--primary-color);
-        }
-
-        .install-prompt button {
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .install-prompt button:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .logo-container {
+        .home-link {
             position: fixed;
             top: var(--padding-small);
             left: var(--padding-small);
             z-index: 1000;
+            cursor: pointer;
         }
 
-        .logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 10px;
-            border: 2px solid var(--secondary-color);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.2em;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            object-fit: cover;
+        .home-link img {
+            width: 80px;
+            height: 80px;
         }
 
         .main-content {
@@ -120,440 +64,161 @@
             justify-content: center;
             align-items: center;
             padding: var(--padding-medium);
-            margin-top: 80px;
-        }
-
-        .business-card {
-            text-align: center;
-            color: var(--text-color);
-            background: var(--background-color);
-            padding: var(--padding-large);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--primary-color);
-            backdrop-filter: blur(10px);
-        }
-
-        .profile-header {
-            margin-bottom: var(--padding-large);
-        }
-
-        .profile-name {
-            color: var(--primary-color);
-            font-size: 2.2em;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
-        }
-
-        .profile-title {
-            color: var(--secondary-color);
-            font-size: 1.3em;
-            font-weight: 600;
-        }
-
-        .contact-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: var(--padding-large);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid var(--primary-color);
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
-        }
-
-        .contact-icon {
-            color: var(--secondary-color);
-            font-size: 1.4em;
-            width: 30px;
-            text-align: center;
         }
 
         .contact-info {
-            text-align: left;
-            flex: 1;
+            text-align: center;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: var(--padding-large);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .contact-label {
-            font-weight: 600;
+        .contact-info h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: var(--padding-small);
+        }
+
+        .contact-info h3 {
             color: var(--secondary-color);
-            font-size: 0.9em;
-            margin-bottom: 2px;
+            font-size: 1.2em;
+            margin-top: var(--padding-small);
+            font-weight: 600;
         }
 
-        .contact-value {
+        .contact-info p {
+            margin: 10px 0;
+            font-size: 1.2em; /* Increased font size */
+        }
+
+        .contact-info a {
             color: var(--text-color);
             text-decoration: none;
-            font-size: 1em;
+            transition: color 0.3s ease;
         }
 
-        .contact-value:hover {
+        .contact-info a:hover {
             color: var(--secondary-color);
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: var(--padding-large) 0;
-        }
-
-        .action-btn {
-            padding: 15px;
-            background: rgba(211, 47, 47, 0.2);
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            color: var(--text-color);
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .action-btn:hover {
-            background: rgba(211, 47, 47, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .action-btn i {
-            color: var(--secondary-color);
-            font-size: 1.4em;
-        }
-
-        .specialty {
-            color: var(--secondary-color);
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-top: var(--padding-medium);
-            padding: 10px;
-            border: 1px solid var(--secondary-color);
-            border-radius: 8px;
-            background: rgba(255, 193, 7, 0.1);
         }
 
         footer {
-            background: linear-gradient(135deg, var(--primary-color), #b71c1c);
+            background-color: var(--primary-color);
             color: var(--text-color);
-            padding: var(--padding-medium) 0;
+            padding: var(--padding-small) 0;
             text-align: center;
         }
 
-        .copyright {
-            margin-bottom: var(--padding-small);
-            font-size: 0.9em;
+        footer p {
+            margin: 0;
+            font-size: 0.8em;
         }
 
         .social-icons {
+            margin-top: var(--padding-small);
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: var(--padding-small);
         }
 
         .social-icon {
             color: var(--text-color);
-            font-size: 1.5em;
-            transition: all 0.3s ease;
+            font-size: 24px;
+            transition: color 0.3s ease;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .social-icon:hover {
             color: var(--secondary-color);
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
         }
 
         @media screen and (max-width: 768px) {
-            .business-card {
+            .contact-info {
                 padding: var(--padding-medium);
             }
-            
-            .profile-name {
-                font-size: 1.8em;
+            .contact-info h2 {
+                font-size: 1.5em;
             }
-            
-            .logo {
+            .contact-info h3 {
+                font-size: 1em;
+            }
+            .home-link img {
                 width: 60px;
                 height: 60px;
-            }
-            
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 8px;
             }
         }
 
         @media screen and (max-width: 480px) {
-            .business-card {
+            body {
+                font-size: 14px;
+            }
+            .contact-info {
                 padding: var(--padding-small);
             }
-            
-            .profile-name {
-                font-size: 1.6em;
+            .contact-info p {
+                font-size: 1em; /* Adjusted for smaller screens */
             }
-            
-            .logo {
+            .social-icon {
+                font-size: 20px;
+            }
+            footer p {
+                font-size: 0.7em;
+            }
+            .home-link img {
                 width: 50px;
                 height: 50px;
-            }
-            
-            .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Install Prompt -->
-    <div class="install-prompt" id="installPrompt">
-        <i class="fas fa-download"></i>
-        <span>Install Business Card</span>
-        <button id="installBtn">INSTALL</button>
+    <div class="home-link" aria-label="Home">
+        <img src="images/capmatic.png" alt="Capmatic logo" onerror="this.style.display='none'">
     </div>
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <div class="logo" id="logo">
-            <!-- Logo will be loaded via JavaScript -->
-            C
-        </div>
-    </div>
-
-    <!-- Main Content -->
     <div class="main-content">
-        <div class="business-card">
-            <div class="profile-header">
-                <h1 class="profile-name">DANIEL GAUDREAULT</h1>
-                <div class="profile-title">BUSINESS CARD</div>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-item" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <div class="contact-info">
-                        <div class="contact-label">EMAIL</div>
-                        <a href="mailto:dgaudreault@capmatic.com" class="contact-value">dgaudreault@capmatic.com</a>
-                    </div>
-                </div>
-                
-                <div class="contact-item" onclick="handleAction('tel:+15143220062')">
-                    <i class="fas fa-phone contact-icon"></i>
-                    <div class="contact-info">
-                        <div class="contact-label">PHONE</div>
-                        <a href="tel:+15143220062" class="contact-value">+1 514-322-0062 Ext 231</a>
-                    </div>
-                </div>
-                
-                <div class="contact-item" onclick="handleAction('https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7')">
-                    <i class="fas fa-map-marker-alt contact-icon"></i>
-                    <div class="contact-info">
-                        <div class="contact-label">ADDRESS</div>
-                        <span class="contact-value">12180 Albert-Hudon, Montreal, QC H1G 3K7</span>
-                    </div>
-                </div>
-                
-                <div class="contact-item" onclick="handleAction('http://www.capmatic.com')">
-                    <i class="fas fa-globe contact-icon"></i>
-                    <div class="contact-info">
-                        <div class="contact-label">WEBSITE</div>
-                        <a href="http://www.capmatic.com" class="contact-value" target="_blank">www.capmatic.com</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="action-btn" onclick="handleAction('tel:+15143220062')">
-                    <i class="fas fa-phone"></i>
-                    <span>Call</span>
-                </div>
-                <div class="action-btn" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
-                    <i class="fas fa-envelope"></i>
-                    <span>Email</span>
-                </div>
-                <div class="action-btn" onclick="handleAction('https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7')">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Directions</span>
-                </div>
-                <div class="action-btn" onclick="handleAction('http://www.capmatic.com')">
-                    <i class="fas fa-globe"></i>
-                    <span>Website</span>
-                </div>
-            </div>
-
-            <div class="specialty">
-                PACKAGING MACHINERY & ROBOTIC SOLUTIONS
-            </div>
-        </div>
+        <article class="contact-info">
+            <h2>Daniel Gaudreault</h2>
+            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:dgaudreault@capmatic.com">dgaudreault@capmatic.com</a></p>
+            <p><i class="fas fa-phone"></i> <strong>Phone:</strong> <a href="tel:+15143220062">+1 514-322-0062 Ext 231</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" target="_blank">12180 Albert-Hudon, Montreal, QC, Canada, H1G 3K7</a></p>
+            <p><i class="fas fa-globe"></i> <strong>Web:</strong> <a href="http://www.capmatic.com" target="_blank">www.capmatic.com</a></p>
+            <h3>Packaging Machinery & Robotic Solutions</h3>
+        </article>
     </div>
 
     <footer>
-        <div class="copyright">
-            © 2025 DANIEL GAUDREAULT - CAPMATIC LTD.
-        </div>
+        <p>© 2025 Daniel Gaudreault. All rights reserved.</p>
         <div class="social-icons">
-            <div class="social-icon" onclick="showMessage('LinkedIn', 'https://www.linkedin.com/in/daniel-gaudreault-373b67203/')">
-                <i class="fab fa-linkedin-in"></i>
-            </div>
-            <div class="social-icon" onclick="showMessage('Facebook', 'https://www.facebook.com/dan.gaudreault/')">
-                <i class="fab fa-facebook-f"></i>
-            </div>
-            <div class="social-icon" onclick="showMessage('Twitter', 'https://twitter.com/DGmovement87')">
-                <i class="fab fa-twitter"></i>
-            </div>
-            <div class="social-icon" onclick="showMessage('GitHub', 'https://github.com/DanielGaudreault')">
-                <i class="fab fa-github"></i>
-            </div>
+            <a href="https://www.facebook.com/dan.gaudreault/" class="social-icon" aria-label="Facebook" onclick="showMessage(event, 'Facebook')"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/DGmovement87" class="social-icon" aria-label="Twitter" onclick="showMessage(event, 'Twitter')"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-icon" aria-label="LinkedIn" onclick="showMessage(event, 'LinkedIn')"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DanielGaudreault" class="social-icon" aria-label="GitHub" onclick="showMessage(event, 'GitHub')"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/dgmovement87/" class="social-icon" aria-label="Instagram" onclick="showMessage(event, 'Instagram')"><i class="fab fa-instagram"></i></a>
+            <a href="https://m.me/dan.gaudreault" class="social-icon" aria-label="Messenger" onclick="showMessage(event, 'Messenger')"><i class="fab fa-facebook-messenger"></i></a>
+            <a href="https://discord.gg/KMPvjRGTvJ" class="social-icon" aria-label="Discord" onclick="showMessage(event, 'Discord')"><i class="fab fa-discord"></i></a>
         </div>
     </footer>
 
     <script>
-        // Load logo image with error handling
-        function loadLogo() {
-            const logo = document.getElementById('logo');
-            const img = new Image();
-            img.src = '/images/capmatic.png';
-            img.onload = function() {
-                logo.innerHTML = '';
-                logo.appendChild(img);
-            };
-            img.onerror = function() {
-                // Keep the fallback 'C' if image fails to load
-                console.log('Logo image not found, using fallback');
-            };
-        }
-
-        // PWA Installation
-        let deferredPrompt;
-        const installPrompt = document.getElementById('installPrompt');
-        const installBtn = document.getElementById('installBtn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('PWA install prompt triggered');
-            e.preventDefault();
-            deferredPrompt = e;
-            installPrompt.style.display = 'flex';
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                
-                if (outcome === 'accepted') {
-                    installPrompt.style.display = 'none';
-                    showAlert('App installed successfully!', 'success');
-                }
-                deferredPrompt = null;
-            }
-        });
-
-        // Check if already installed
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installPrompt.style.display = 'none';
-        }
-
-        // Action Handler
-        function handleAction(url) {
-            if (url.startsWith('tel:') || url.startsWith('mailto:')) {
-                window.location.href = url;
-            } else if (url.startsWith('http')) {
-                window.open(url, '_blank');
-            }
-        }
-
-        // Alert Function
-        function showAlert(message, type = 'info') {
-            const config = {
-                background: 'rgba(0, 0, 0, 0.9)',
-                color: 'white',
-                confirmButtonColor: '#D32F2F'
-            };
-
-            if (type === 'success') {
-                Swal.fire({
-                    title: 'Success!',
-                    text: message,
-                    icon: 'success',
-                    ...config
-                });
-            } else {
-                Swal.fire({
-                    title: 'Information',
-                    text: message,
-                    icon: 'info',
-                    ...config
-                });
-            }
-        }
-
-        function showMessage(platform, url) {
+        function showMessage(event, platform) {
+            event.preventDefault();
             Swal.fire({
                 title: platform,
-                text: 'Opening ' + platform,
+                text: 'You clicked on ' + platform,
                 icon: 'info',
-                confirmButtonText: 'Open',
+                confirmButtonText: 'Visit ' + platform,
                 showCancelButton: true,
-                background: 'rgba(0, 0, 0, 0.9)',
-                color: 'white',
-                confirmButtonColor: '#D32F2F'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.open(url, '_blank');
+                    window.open(event.target.closest('a').href, '_blank');
                 }
             });
         }
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadLogo();
-            console.log('Capmatic Business Card loaded successfully');
-        });
     </script>
 </body>
 </html>
