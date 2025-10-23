@@ -1,4 +1,4 @@
-from flask import Flask, send_file, jsonify, render_template_string
+from flask import Flask, send_file, jsonify, render_template_string, send_from_directory
 import os
 
 app = Flask(__name__, static_folder='.', static_url_path='')
@@ -13,19 +13,19 @@ def serve_index():
 
 @app.route('/manifest.json')
 def serve_manifest():
-    """Serve the PWA manifest"""
-    return send_file('manifest.json')
+    """Serve the PWA manifest with correct headers"""
+    return send_file('manifest.json', mimetype='application/manifest+json')
 
 @app.route('/service-worker.js')
 def serve_service_worker():
-    """Serve the service worker"""
+    """Serve the service worker with correct headers"""
     return send_file('service-worker.js', mimetype='application/javascript')
 
 @app.route('/images/<path:filename>')
 def serve_images(filename):
     """Serve images from images directory"""
     try:
-        return send_file(f'images/{filename}')
+        return send_from_directory('images', filename)
     except Exception as e:
         return f"Image not found: {filename}", 404
 
@@ -35,7 +35,7 @@ def health_check():
     return jsonify({
         "status": "healthy",
         "app": "Capmatic Business Card PWA",
-        "version": "1.0.0"
+        "version": "2.0.0"
     })
 
 @app.route('/offline')
@@ -78,7 +78,19 @@ def offline_page():
     """
     return render_template_string(offline_html)
 
+# Add this to ensure proper MIME types for PWA
+@app.after_request
+def add_header(response):
+    """Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes."""
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('DEBUG', 'False').lower() == 'true'
+    print(f"🚀 Starting Capmatic PWA on port {port}")
+    print(f"📱 Access at: http://localhost:{port}")
+    print(f"🔧 Debug mode: {debug}")
     app.run(host='0.0.0.0', port=port, debug=debug)
