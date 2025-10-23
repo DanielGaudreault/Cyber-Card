@@ -1099,244 +1099,341 @@
     </footer>
 
     <script>
-        // DOM Elements
-        const menuBtn = document.getElementById('menuBtn');
-        const nav = document.getElementById('nav');
-        const installPrompt = document.getElementById('installPrompt');
-        const installBtn = document.getElementById('installBtn');
-        const installNavBtn = document.getElementById('installNavBtn');
-        const shareBtn = document.getElementById('shareBtn');
-        const themeBtn = document.getElementById('themeBtn');
+    // DOM Elements
+    const menuBtn = document.getElementById('menuBtn');
+    const nav = document.getElementById('nav');
+    const installPrompt = document.getElementById('installPrompt');
+    const installBtn = document.getElementById('installBtn');
+    const installNavBtn = document.getElementById('installNavBtn');
+    const shareBtn = document.getElementById('shareBtn');
+    const themeBtn = document.getElementById('themeBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const pwaStatus = document.getElementById('pwaStatus');
 
-        let deferredPrompt;
-        let currentTheme = 'cyber';
+    let deferredPrompt;
+    let currentTheme = 'cyber';
 
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 20 : 40;
+    // Create Particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = window.innerWidth < 768 ? 20 : 40;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const left = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = 10 + Math.random() * 20;
-                const size = 2 + Math.random() * 4;
-                
-                particle.style.left = `${left}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = color;
-                particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
-                
-                particlesContainer.appendChild(particle);
-            }
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 10 + Math.random() * 20;
+            const size = 2 + Math.random() * 4;
+            
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
+            
+            particlesContainer.appendChild(particle);
         }
+    }
 
-        // Menu Toggle
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            nav.classList.toggle('active');
-            menuBtn.querySelector('i').className = nav.classList.contains('active') 
-                ? 'fas fa-times' 
-                : 'fas fa-bars';
-        });
+    // Menu Toggle
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        nav.classList.toggle('active');
+        menuBtn.querySelector('i').className = nav.classList.contains('active') 
+            ? 'fas fa-times' 
+            : 'fas fa-bars';
+    });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!menuBtn.contains(e.target) && !nav.contains(e.target)) {
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !nav.contains(e.target)) {
+            nav.classList.remove('active');
+            menuBtn.querySelector('i').className = 'fas fa-bars';
+        }
+    });
+
+    // PWA Installation - Fixed Logic
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('✅ PWA install prompt triggered');
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install prompt immediately
+        installPrompt.style.display = 'flex';
+        
+        // Log for debugging
+        console.log('📱 Install prompt shown');
+    });
+
+    // Check if app is already installed
+    function checkInstalledStatus() {
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('✅ App is running as PWA');
+            installPrompt.style.display = 'none';
+            return true;
+        }
+        
+        // Check if launched from home screen
+        if (window.navigator.standalone === true) {
+            console.log('✅ App launched from home screen');
+            installPrompt.style.display = 'none';
+            return true;
+        }
+        
+        return false;
+    }
+
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            console.log('🔄 Starting installation...');
+            deferredPrompt.prompt();
+            
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('📱 User response to install prompt:', outcome);
+            
+            if (outcome === 'accepted') {
+                installPrompt.style.display = 'none';
+                showAlert(null, '🎉 App installed successfully! You can now find it on your home screen.', 'success');
+                console.log('✅ PWA installed successfully');
+            } else {
+                showAlert(null, 'Installation cancelled. You can install it later from the menu.', 'info');
+                console.log('❌ PWA installation cancelled');
+            }
+            
+            deferredPrompt = null;
+        } else {
+            showAlert(null, 'Installation not available. Try refreshing the page.', 'info');
+            console.log('❌ No deferred prompt available');
+        }
+    });
+
+    installNavBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                installPrompt.style.display = 'none';
                 nav.classList.remove('active');
                 menuBtn.querySelector('i').className = 'fas fa-bars';
+                showAlert(null, '🎉 App installed successfully!', 'success');
             }
-        });
-
-        // PWA Installation
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('PWA install prompt triggered');
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show install prompt after 2 seconds
-            setTimeout(() => {
-                if (deferredPrompt) {
-                    installPrompt.style.display = 'flex';
-                }
-            }, 2000);
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log('User response to install prompt:', outcome);
-                if (outcome === 'accepted') {
-                    installPrompt.style.display = 'none';
-                    showAlert(null, 'App installed successfully!', 'success');
-                }
-                deferredPrompt = null;
-            }
-        });
-
-        installNavBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installPrompt.style.display = 'none';
-                    nav.classList.remove('active');
-                    menuBtn.querySelector('i').className = 'fas fa-bars';
-                    showAlert(null, 'App installed successfully!', 'success');
-                }
-                deferredPrompt = null;
-            }
-        });
-
-        // Share Functionality
-        shareBtn.addEventListener('click', async () => {
-            const shareData = {
-                title: 'Daniel Gaudreault - Capmatic',
-                text: 'Packaging Machinery & Robotic Solutions\n\nContact Information:\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062 Ext 231\nWebsite: www.capmatic.com',
-                url: window.location.href
-            };
-
-            try {
-                if (navigator.share) {
-                    await navigator.share(shareData);
-                } else {
-                    await navigator.clipboard.writeText(shareData.text);
-                    showAlert(null, 'Contact info copied to clipboard!', 'success');
-                }
-            } catch (err) {
-                console.log('Share failed:', err);
-            }
-            
+            deferredPrompt = null;
+        } else {
+            showAlert(null, 'Installation not available in this browser or app already installed.', 'info');
             nav.classList.remove('active');
             menuBtn.querySelector('i').className = 'fas fa-bars';
-        });
-
-        // Theme Toggle
-        themeBtn.addEventListener('click', () => {
-            const themes = ['cyber', 'professional', 'dark'];
-            const themeColors = {
-                cyber: { 
-                    primary: '#00f7ff', 
-                    secondary: '#ff00d6', 
-                    accent: '#00ff88' 
-                },
-                professional: { 
-                    primary: '#0066cc', 
-                    secondary: '#ff6600', 
-                    accent: '#00aa66' 
-                },
-                dark: { 
-                    primary: '#ffffff', 
-                    secondary: '#cccccc', 
-                    accent: '#888888' 
-                }
-            };
-
-            currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
-            const colors = themeColors[currentTheme];
-
-            document.documentElement.style.setProperty('--primary-color', colors.primary);
-            document.documentElement.style.setProperty('--secondary-color', colors.secondary);
-            document.documentElement.style.setProperty('--accent-color', colors.accent);
-
-            nav.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-            
-            showAlert(null, `Theme changed to ${currentTheme}`, 'info');
-        });
-
-        // Action Handler
-        function handleAction(url) {
-            if (url.startsWith('tel:') || url.startsWith('mailto:')) {
-                window.location.href = url;
-            } else if (url.startsWith('http')) {
-                window.open(url, '_blank');
-            }
         }
+    });
 
-        // Alert Function
-        function showAlert(event, platform, type = 'info') {
-            if (event) event.preventDefault();
-            
-            const config = {
-                background: 'rgba(20, 20, 50, 0.95)',
-                confirmButtonColor: 'var(--primary-color)',
-                customClass: {
-                    popup: 'cyber-popup'
-                }
-            };
+    // Share Functionality
+    shareBtn.addEventListener('click', async () => {
+        const shareData = {
+            title: 'Daniel Gaudreault - Capmatic',
+            text: 'Packaging Machinery & Robotic Solutions\n\nContact Information:\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062 Ext 231\nWebsite: www.capmatic.com',
+            url: window.location.href
+        };
 
-            if (type === 'success') {
-                Swal.fire({
-                    title: '🎉 Success!',
-                    text: platform,
-                    icon: 'success',
-                    ...config
-                });
-            } else if (type === 'info') {
-                Swal.fire({
-                    title: 'ℹ️ ' + platform,
-                    text: 'Theme has been changed',
-                    icon: 'info',
-                    ...config
-                });
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+                showAlert(null, 'Contact shared successfully!', 'success');
             } else {
-                Swal.fire({
-                    title: `<span style="color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color);">${platform}</span>`,
-                    html: `<p style="color: white; font-size: 16px;">Opening ${platform}</p>`,
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Open',
-                    cancelButtonText: 'Cancel',
-                    cancelButtonColor: 'var(--secondary-color)',
-                    ...config
-                }).then((result) => {
-                    if (result.isConfirmed && event) {
-                        window.open(event.target.closest('a').href, '_blank');
-                    }
-                });
+                await navigator.clipboard.writeText(shareData.text);
+                showAlert(null, 'Contact info copied to clipboard!', 'success');
             }
+        } catch (err) {
+            console.log('Share failed:', err);
+            // Fallback to clipboard
+            await navigator.clipboard.writeText(shareData.text);
+            showAlert(null, 'Contact info copied to clipboard!', 'success');
         }
+        
+        nav.classList.remove('active');
+        menuBtn.querySelector('i').className = 'fas fa-bars';
+    });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            
-            // Check if already installed
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('App is running as PWA');
-                installPrompt.style.display = 'none';
+    // Theme Toggle
+    themeBtn.addEventListener('click', () => {
+        const themes = ['cyber', 'professional', 'dark'];
+        const themeColors = {
+            cyber: { 
+                primary: '#00f7ff', 
+                secondary: '#ff00d6', 
+                accent: '#00ff88' 
+            },
+            professional: { 
+                primary: '#0066cc', 
+                secondary: '#ff6600', 
+                accent: '#00aa66' 
+            },
+            dark: { 
+                primary: '#ffffff', 
+                secondary: '#cccccc', 
+                accent: '#888888' 
             }
+        };
 
-            // Add touch feedback
-            const touchElements = document.querySelectorAll('.contact-item, .action-btn, .social-btn, .nav-item');
-            touchElements.forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
+        currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
+        const colors = themeColors[currentTheme];
+
+        document.documentElement.style.setProperty('--primary-color', colors.primary);
+        document.documentElement.style.setProperty('--secondary-color', colors.secondary);
+        document.documentElement.style.setProperty('--accent-color', colors.accent);
+
+        nav.classList.remove('active');
+        menuBtn.querySelector('i').className = 'fas fa-bars';
+        
+        showAlert(null, `Theme changed to ${currentTheme}`, 'info');
+    });
+
+    // Refresh Button
+    refreshBtn.addEventListener('click', () => {
+        window.location.reload();
+        nav.classList.remove('active');
+        menuBtn.querySelector('i').className = 'fas fa-bars';
+        showAlert(null, 'App refreshed!', 'success');
+    });
+
+    // Action Handler
+    function handleAction(url) {
+        if (url.startsWith('tel:') || url.startsWith('mailto:')) {
+            window.location.href = url;
+        } else if (url.startsWith('http')) {
+            window.open(url, '_blank');
+        }
+    }
+
+    // Alert Function
+    function showAlert(event, message, type = 'info') {
+        if (event) event.preventDefault();
+        
+        const config = {
+            background: 'rgba(20, 20, 50, 0.95)',
+            color: 'white',
+            confirmButtonColor: 'var(--primary-color)',
+            customClass: {
+                popup: 'cyber-popup'
+            }
+        };
+
+        if (type === 'success') {
+            Swal.fire({
+                title: 'Success!',
+                text: message,
+                icon: 'success',
+                ...config
+            });
+        } else if (type === 'info') {
+            Swal.fire({
+                title: 'Information',
+                text: message,
+                icon: 'info',
+                ...config
+            });
+        } else {
+            Swal.fire({
+                title: `<span style="color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color);">${message}</span>`,
+                html: `<p style="color: white; font-size: 16px;">Opening ${message}</p>`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Open',
+                cancelButtonText: 'Cancel',
+                cancelButtonColor: 'var(--secondary-color)',
+                ...config
+            }).then((result) => {
+                if (result.isConfirmed && event) {
+                    window.open(event.target.closest('a').href, '_blank');
+                }
+            });
+        }
+    }
+
+    // Network Status Monitoring
+    function updateNetworkStatus() {
+        if (navigator.onLine) {
+            pwaStatus.style.display = 'block';
+            pwaStatus.classList.remove('offline');
+            console.log('✅ Online');
+        } else {
+            pwaStatus.style.display = 'block';
+            pwaStatus.classList.add('offline');
+            console.log('❌ Offline');
+            showAlert(null, 'You are currently offline. Some features may not be available.', 'info');
+        }
+    }
+
+    // Service Worker Registration - Fixed
+    function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('✅ ServiceWorker registration successful with scope: ', registration.scope);
+                    
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        console.log('🔄 New service worker found:', newWorker);
+                    });
+                })
+                .catch(function(error) {
+                    console.log('❌ ServiceWorker registration failed: ', error);
                 });
-                
-                element.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                });
+        } else {
+            console.log('❌ Service workers are not supported');
+        }
+    }
+
+    // Initialize App
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Initializing Capmatic PWA...');
+        
+        createParticles();
+        registerServiceWorker();
+        updateNetworkStatus();
+        checkInstalledStatus();
+        
+        // Network status event listeners
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        
+        // Periodic check for installability
+        setInterval(checkInstalledStatus, 5000);
+
+        // Add touch feedback
+        const touchElements = document.querySelectorAll('.contact-item, .action-btn, .social-btn, .nav-item');
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            element.addEventListener('touchend', function() {
+                this.style.transform = '';
             });
         });
 
-        // Service Worker Registration (Optional)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(() => {
-                console.log('Service Worker registration failed');
-            });
+        console.log('✅ Capmatic PWA initialized successfully');
+    });
+
+    // Add to Home Screen functionality for iOS
+    function showIosInstallPrompt() {
+        const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+        const isInStandaloneMode = window.navigator.standalone === true;
+        
+        if (isIos && !isInStandaloneMode) {
+            showAlert(null, 'To install this app: tap the share button and then "Add to Home Screen"', 'info');
         }
-    </script>
+    }
+
+    // Check for iOS on load
+    setTimeout(showIosInstallPrompt, 3000);
+</script>
 </body>
 </html>
