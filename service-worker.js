@@ -2,9 +2,7 @@ const CACHE_NAME = 'capmatic-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/images/capmatic.png',
-  '/images/logo.png'
+  '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
