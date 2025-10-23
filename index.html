@@ -176,6 +176,95 @@
             text-shadow: 0 0 10px var(--primary-color);
         }
 
+        /* Menu Button */
+        .menu-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            transform: scale(0.95);
+        }
+
+        /* Navigation Menu */
+        .nav {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 300px;
+            background: rgba(20, 20, 50, 0.98);
+            backdrop-filter: blur(30px);
+            border-left: 2px solid var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            border-radius: 0 0 0 25px;
+            padding: var(--padding-large);
+            z-index: 999;
+            transition: right 0.4s ease;
+            box-shadow: -5px 5px 30px rgba(0, 247, 255, 0.2);
+        }
+
+        .nav.active {
+            right: 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--padding-large);
+        }
+
+        .nav-title {
+            color: var(--accent-color);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 247, 255, 0.1);
+            transform: translateX(10px);
+            border-color: var(--primary-color);
+        }
+
+        .nav-item i {
+            width: 25px;
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+
         /* Main Content */
         .main-content {
             padding: 100px var(--padding-medium) var(--padding-medium);
@@ -527,6 +616,9 @@
             .quick-actions {
                 grid-template-columns: 1fr;
             }
+            .nav {
+                width: 280px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -541,6 +633,9 @@
             .contact-icon {
                 margin-right: 0;
                 margin-bottom: 8px;
+            }
+            .nav {
+                width: 250px;
             }
         }
     </style>
@@ -563,7 +658,53 @@
             <img src="images/capmatic.png" alt="Capmatic" class="logo-img" onerror="this.style.display='none'">
             <div class="logo-text">CAPMATIC</div>
         </div>
+        <div class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav" id="nav">
+        <div class="nav-section">
+            <div class="nav-title">Quick Actions</div>
+            <a href="tel:+15143220062" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Call Now</span>
+            </a>
+            <a href="mailto:dgaudreault@capmatic.com" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Send Email</span>
+            </a>
+            <a href="http://www.capmatic.com" class="nav-item" target="_blank">
+                <i class="fas fa-globe"></i>
+                <span>Visit Website</span>
+            </a>
+            <a href="https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7" class="nav-item" target="_blank">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Get Directions</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">App Features</div>
+            <div class="nav-item" id="installNavBtn">
+                <i class="fas fa-download"></i>
+                <span>Install App</span>
+            </div>
+            <div class="nav-item" id="shareBtn">
+                <i class="fas fa-share-alt"></i>
+                <span>Share Contact</span>
+            </div>
+            <div class="nav-item" id="themeBtn">
+                <i class="fas fa-palette"></i>
+                <span>Change Theme</span>
+            </div>
+            <div class="nav-item" id="refreshBtn">
+                <i class="fas fa-sync-alt"></i>
+                <span>Refresh</span>
+            </div>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -622,6 +763,25 @@
                 </div>
             </div>
             
+            <div class="quick-actions">
+                <div class="action-btn" onclick="handleAction('tel:+15143220062')">
+                    <i class="fas fa-phone"></i>
+                    <span>Call</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Directions</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('http://www.capmatic.com')">
+                    <i class="fas fa-globe"></i>
+                    <span>Website</span>
+                </div>
+            </div>
+            
             <div class="specialty">
                 PACKAGING MACHINERY & ROBOTIC SOLUTIONS
             </div>
@@ -651,11 +811,37 @@
     </footer>
 
     <script>
-        // PWA Installation
-        let deferredPrompt;
+        // DOM Elements
+        const menuBtn = document.getElementById('menuBtn');
+        const nav = document.getElementById('nav');
         const installPrompt = document.getElementById('installPrompt');
         const installBtn = document.getElementById('installBtn');
+        const installNavBtn = document.getElementById('installNavBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const themeBtn = document.getElementById('themeBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
 
+        let deferredPrompt;
+        let currentTheme = 'cyber';
+
+        // Menu Toggle
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nav.classList.toggle('active');
+            menuBtn.querySelector('i').className = nav.classList.contains('active') 
+                ? 'fas fa-times' 
+                : 'fas fa-bars';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !nav.contains(e.target)) {
+                nav.classList.remove('active');
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // PWA Installation
         window.addEventListener('beforeinstallprompt', (e) => {
             console.log('PWA install prompt triggered');
             e.preventDefault();
@@ -676,10 +862,88 @@
             }
         });
 
-        // Check if already installed
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installPrompt.style.display = 'none';
-        }
+        installNavBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    installPrompt.style.display = 'none';
+                    nav.classList.remove('active');
+                    menuBtn.querySelector('i').className = 'fas fa-bars';
+                    showAlert('App installed successfully!', 'success');
+                }
+                deferredPrompt = null;
+            } else {
+                showAlert('Installation not available or app already installed.', 'info');
+                nav.classList.remove('active');
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // Share Functionality
+        shareBtn.addEventListener('click', async () => {
+            const shareData = {
+                title: 'Daniel Gaudreault - Capmatic',
+                text: 'Packaging Machinery & Robotic Solutions\n\nContact Information:\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062 Ext 231\nWebsite: www.capmatic.com',
+                url: window.location.href
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    await navigator.clipboard.writeText(shareData.text);
+                    showAlert('Contact info copied to clipboard!', 'success');
+                }
+            } catch (err) {
+                console.log('Share failed:', err);
+            }
+            
+            nav.classList.remove('active');
+            menuBtn.querySelector('i').className = 'fas fa-bars';
+        });
+
+        // Theme Toggle
+        themeBtn.addEventListener('click', () => {
+            const themes = ['cyber', 'professional', 'dark'];
+            const themeColors = {
+                cyber: { 
+                    primary: '#00f7ff', 
+                    secondary: '#ff00d6', 
+                    accent: '#00ff88' 
+                },
+                professional: { 
+                    primary: '#0066cc', 
+                    secondary: '#ff6600', 
+                    accent: '#00aa66' 
+                },
+                dark: { 
+                    primary: '#ffffff', 
+                    secondary: '#cccccc', 
+                    accent: '#888888' 
+                }
+            };
+
+            currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
+            const colors = themeColors[currentTheme];
+
+            document.documentElement.style.setProperty('--primary-color', colors.primary);
+            document.documentElement.style.setProperty('--secondary-color', colors.secondary);
+            document.documentElement.style.setProperty('--accent-color', colors.accent);
+
+            nav.classList.remove('active');
+            menuBtn.querySelector('i').className = 'fas fa-bars';
+            
+            showAlert(`Theme changed to ${currentTheme}`, 'info');
+        });
+
+        // Refresh Button
+        refreshBtn.addEventListener('click', () => {
+            window.location.reload();
+            nav.classList.remove('active');
+            menuBtn.querySelector('i').className = 'fas fa-bars';
+        });
 
         // Action Handler
         function handleAction(url) {
@@ -691,9 +955,7 @@
         }
 
         // Alert Function
-        function showAlert(event, platform, type = 'info') {
-            if (event) event.preventDefault();
-            
+        function showAlert(message, type = 'info') {
             const config = {
                 background: 'rgba(20, 20, 50, 0.95)',
                 color: 'white',
@@ -703,23 +965,16 @@
             if (type === 'success') {
                 Swal.fire({
                     title: 'Success!',
-                    text: platform,
+                    text: message,
                     icon: 'success',
                     ...config
                 });
             } else {
                 Swal.fire({
-                    title: platform,
-                    text: 'Opening ' + platform,
+                    title: 'Information',
+                    text: message,
                     icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Open',
-                    cancelButtonText: 'Cancel',
                     ...config
-                }).then((result) => {
-                    if (result.isConfirmed && event) {
-                        window.open(event.target.closest('a').href, '_blank');
-                    }
                 });
             }
         }
@@ -735,6 +990,11 @@
                         console.log('ServiceWorker registration failed: ', error);
                     });
             });
+        }
+
+        // Check if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installPrompt.style.display = 'none';
         }
     </script>
 </body>
