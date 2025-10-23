@@ -10,13 +10,13 @@
     <meta name="apple-mobile-web-app-title" content="Daniel Gaudreault">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Daniel%20Gaudreault%22%2C%22short_name%22%3A%22Capmatic%22%2C%22description%22%3A%22Business%20card%20for%20Daniel%20Gaudreault%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a1a%22%2C%22theme_color%22%3A%22%2300f7ff%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Daniel%20Gaudreault%22%2C%22short_name%22%3A%22Capmatic%22%2C%22description%22%3A%22Business%20card%20for%20Daniel%20Gaudreault%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a1a%22%2C%22theme_color%22%3A%22%2300f7ff%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22images%2Fcapmatic.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fcapmatic.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
     
     <title>Daniel Gaudreault - Capmatic</title>
     
     <!-- Icons -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
+    <link rel="icon" href="images/capmatic.png">
+    <link rel="apple-touch-icon" href="images/capmatic.png">
     
     <!-- Styles & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -210,10 +210,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
-            color: var(--dark-bg);
-            font-weight: bold;
             animation: logoGlow 3s ease-in-out infinite alternate;
+            object-fit: cover;
         }
 
         @keyframes logoGlow {
@@ -499,12 +497,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
-            color: var(--dark-bg);
-            font-weight: bold;
             animation: profileGlow 3s ease-in-out infinite alternate;
             position: relative;
             overflow: hidden;
+            object-fit: cover;
         }
 
         .profile-img::before {
@@ -922,6 +918,17 @@
                 margin-bottom: 8px;
             }
         }
+
+        /* Image fallback styles */
+        .image-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -940,7 +947,7 @@
     <!-- Header -->
     <header class="header">
         <a href="#" class="logo">
-            <div class="logo-img">C</div>
+            <img src="images/capmatic.png" alt="Capmatic" class="logo-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'logo-img image-fallback\'>C</div>'">
             <div class="logo-text">CAPMATIC</div>
         </a>
         <div class="menu-btn" id="menuBtn">
@@ -997,7 +1004,7 @@
             <div class="corner corner-br"></div>
             
             <div class="profile">
-                <div class="profile-img">DG</div>
+                <img src="images/logo.png" alt="Daniel Gaudreault" class="profile-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'profile-img image-fallback\'>DG</div>'">
                 <h1 class="profile-name">DANIEL GAUDREAULT</h1>
                 <div class="profile-title">Business Development Manager</div>
             </div>
