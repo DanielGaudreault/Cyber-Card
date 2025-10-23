@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Daniel Gaudreault - Capmatic Business Card">
-    <meta name="theme-color" content="#0a0a1a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Daniel Gaudreault">
+    <meta name="description" content="Daniel Gaudreault's business card with contact info for packaging machinery solutions.">
+    <meta name="theme-color" content="#D32F2F">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="images/capmatic.png">
-    <link rel="apple-touch-startup-image" href="images/capmatic.png">
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="/images/capmatic.png">
+    <link rel="apple-touch-icon" href="/images/capmatic.png">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/capmatic.png">
-    
-    <title>Daniel Gaudreault - Capmatic</title>
+    <title>Daniel Gaudreault - Business Card</title>
     
     <!-- Styles & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,40 +21,34 @@
     
     <style>
         :root {
-            --primary-color: #00f7ff;
-            --secondary-color: #ff00d6;
-            --accent-color: #00ff88;
-            --text-color: #ffffff;
-            --dark-bg: #0a0a1a;
-            --card-bg: rgba(20, 20, 50, 0.92);
-            --padding-small: 12px;
+            --primary-color: #D32F2F;
+            --secondary-color: #FFC107;
+            --text-color: white;
+            --background-color: rgba(0, 0, 0, 0.85);
+            --padding-small: 10px;
             --padding-medium: 20px;
-            --padding-large: 25px;
-            --font-main: 'Orbitron', sans-serif;
-            --font-secondary: 'Rajdhani', sans-serif;
+            --padding-large: 30px;
         }
-
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            height: 100%;
-            background: var(--dark-bg);
         }
 
         body {
-            font-family: var(--font-main);
-            background: var(--dark-bg);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
+            line-height: 1.6;
             color: var(--text-color);
-            line-height: 1.5;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         /* Install Prompt */
@@ -70,1006 +58,310 @@
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--dark-bg);
+            color: white;
             padding: 15px 25px;
             border-radius: 25px;
             display: none;
             align-items: center;
             gap: 15px;
             z-index: 10000;
-            font-family: var(--font-secondary);
             font-weight: 600;
-            box-shadow: 0 5px 25px rgba(0, 247, 255, 0.6);
+            box-shadow: 0 5px 25px rgba(211, 47, 47, 0.6);
             border: 2px solid var(--primary-color);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
         }
 
         .install-prompt button {
-            background: var(--dark-bg);
+            background: white;
             color: var(--primary-color);
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
-            font-family: var(--font-main);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid var(--primary-color);
         }
 
-        .install-prompt button:active {
-            transform: scale(0.95);
+        .install-prompt button:hover {
             background: var(--primary-color);
-            color: var(--dark-bg);
+            color: white;
         }
 
-        /* Background Effects */
-        .cyber-bg {
+        .logo-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 247, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 214, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                var(--dark-bg);
-            z-index: -3;
-        }
-
-        .cyber-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -2;
-            opacity: 0.3;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--primary-color);
-            border-radius: 50%;
-            animation: floatParticle 15s infinite linear;
-            opacity: 0;
-        }
-
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: var(--padding-small);
+            top: var(--padding-small);
+            left: var(--padding-small);
             z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--primary-color);
-            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            border: 2px solid var(--primary-color);
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 3px;
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            border: 2px solid var(--secondary-color);
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: logoGlow 3s ease-in-out infinite alternate;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
             object-fit: cover;
         }
 
-        @keyframes logoGlow {
-            0% { box-shadow: 0 0 10px var(--primary-color); }
-            100% { box-shadow: 0 0 20px var(--secondary-color); }
-        }
-
-        .logo-text {
-            font-family: var(--font-main);
-            font-size: 1.3em;
-            color: var(--primary-color);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--primary-color);
-        }
-
-        .menu-btn {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--primary-color);
-            color: var(--text-color);
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .menu-btn:active::before {
-            left: 100%;
-        }
-
-        .menu-btn:active {
-            transform: scale(0.9);
-            background: rgba(0, 247, 255, 0.2);
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 70px;
-            right: -100%;
-            width: 300px;
-            background: rgba(20, 20, 50, 0.98);
-            backdrop-filter: blur(30px);
-            border-left: 2px solid var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            border-radius: 0 0 0 25px;
-            padding: var(--padding-large);
-            z-index: 999;
-            transition: right 0.4s ease;
-            box-shadow: -5px 5px 30px rgba(0, 247, 255, 0.2);
-        }
-
-        .nav.active {
-            right: 0;
-        }
-
-        .nav-section {
-            margin-bottom: var(--padding-large);
-        }
-
-        .nav-title {
-            color: var(--accent-color);
-            font-family: var(--font-secondary);
-            font-size: 1em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            margin-bottom: 8px;
-            border: 1px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .nav-item:active::before {
-            left: 100%;
-        }
-
-        .nav-item:active {
-            background: rgba(0, 247, 255, 0.1);
-            transform: translateX(10px);
-            border-color: var(--primary-color);
-        }
-
-        .nav-item i {
-            width: 25px;
-            text-align: center;
-            color: var(--primary-color);
-            font-size: 1.2em;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item:active i {
-            transform: scale(1.2);
-            color: var(--accent-color);
-        }
-
-        /* Main Content */
         .main-content {
-            padding: 90px var(--padding-medium) var(--padding-medium);
+            flex: 1;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Card */
-        .card {
-            width: 100%;
-            max-width: 600px;
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: var(--padding-large);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(25px);
-            border: 1px solid transparent;
-            box-shadow: 
-                0 0 40px rgba(0, 247, 255, 0.5),
-                inset 0 0 30px rgba(0, 247, 255, 0.1);
-            margin-bottom: var(--padding-medium);
-            transform-style: preserve-3d;
-            transition: all 0.5s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 
-                0 0 60px rgba(0, 247, 255, 0.7),
-                inset 0 0 40px rgba(0, 247, 255, 0.2);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
-            z-index: -1;
-            border-radius: 28px;
-            animation: borderGlow 3s linear infinite;
-            background-size: 400%;
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--card-bg);
-            border-radius: 25px;
-            z-index: -1;
-        }
-
-        @keyframes borderGlow {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
-        }
-
-        .scan-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--primary-color), var(--accent-color), var(--primary-color), transparent);
-            animation: scan 3s linear infinite;
-            z-index: 2;
-            box-shadow: 0 0 10px var(--primary-color);
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        /* Corner Elements */
-        .corner {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            z-index: 3;
-        }
-
-        .corner-tl {
-            top: 15px;
-            left: 15px;
-            border-top: 3px solid var(--primary-color);
-            border-left: 3px solid var(--primary-color);
-            animation: cornerPulse 2s infinite;
-        }
-
-        .corner-tr {
-            top: 15px;
-            right: 15px;
-            border-top: 3px solid var(--secondary-color);
-            border-right: 3px solid var(--secondary-color);
-            animation: cornerPulse 2s infinite 0.5s;
-        }
-
-        .corner-bl {
-            bottom: 15px;
-            left: 15px;
-            border-bottom: 3px solid var(--accent-color);
-            border-left: 3px solid var(--accent-color);
-            animation: cornerPulse 2s infinite 1s;
-        }
-
-        .corner-br {
-            bottom: 15px;
-            right: 15px;
-            border-bottom: 3px solid var(--primary-color);
-            border-right: 3px solid var(--primary-color);
-            animation: cornerPulse 2s infinite 1.5s;
-        }
-
-        @keyframes cornerPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* Profile */
-        .profile {
-            text-align: center;
-            margin-bottom: var(--padding-large);
-            position: relative;
-        }
-
-        .profile-img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            padding: 4px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            animation: profileGlow 3s ease-in-out infinite alternate;
-            position: relative;
-            overflow: hidden;
-            object-fit: cover;
+            align-items: center;
+            padding: var(--padding-medium);
+            margin-top: 80px;
         }
 
-        .profile-img::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
+        .business-card {
+            text-align: center;
+            color: var(--text-color);
+            background: var(--background-color);
+            padding: var(--padding-large);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-color);
+            backdrop-filter: blur(10px);
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        @keyframes profileGlow {
-            0% { 
-                box-shadow: 0 0 25px var(--primary-color),
-                           inset 0 0 15px rgba(0, 247, 255, 0.3);
-            }
-            100% { 
-                box-shadow: 0 0 35px var(--secondary-color),
-                           inset 0 0 20px rgba(255, 0, 214, 0.3);
-            }
+        .profile-header {
+            margin-bottom: var(--padding-large);
         }
 
         .profile-name {
-            color: transparent;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
-            animation: textShine 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes textShine {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
         }
 
         .profile-title {
             color: var(--secondary-color);
-            font-family: var(--font-secondary);
             font-size: 1.3em;
             font-weight: 600;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 0, 214, 0.5);
         }
 
-        /* Contact Grid */
         .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             margin-bottom: var(--padding-large);
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            border-left: 5px solid var(--primary-color);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            gap: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
         }
 
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .contact-item:active::before {
-            left: 100%;
-        }
-
-        .contact-item:active {
-            transform: translateX(10px) scale(0.98);
-            background: rgba(0, 0, 0, 0.6);
-            border-left: 5px solid var(--accent-color);
-            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
         }
 
         .contact-icon {
-            color: var(--primary-color);
-            font-size: 1.6em;
-            width: 40px;
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            width: 30px;
             text-align: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px var(--primary-color);
-        }
-
-        .contact-item:active .contact-icon {
-            transform: scale(1.3) rotate(10deg);
-            color: var(--accent-color);
         }
 
         .contact-info {
+            text-align: left;
             flex: 1;
         }
 
         .contact-label {
-            color: var(--accent-color);
-            font-family: var(--font-secondary);
-            font-weight: 700;
-            font-size: 1em;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 0.9em;
+            margin-bottom: 2px;
         }
 
         .contact-value {
             color: var(--text-color);
             text-decoration: none;
-            font-family: var(--font-secondary);
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            position: relative;
-            display: inline-block;
+            font-size: 1em;
         }
 
-        .contact-value::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: width 0.3s ease;
-        }
-
-        .contact-value:active {
+        .contact-value:hover {
             color: var(--secondary-color);
-            text-shadow: 0 0 5px var(--secondary-color);
         }
 
-        .contact-value:active::after {
-            width: 100%;
-        }
-
-        /* Quick Actions */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: var(--padding-large);
+            gap: 12px;
+            margin: var(--padding-large) 0;
         }
 
         .action-btn {
-            padding: 18px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            background: rgba(211, 47, 47, 0.2);
             border: 2px solid var(--primary-color);
-            border-radius: 15px;
+            border-radius: 10px;
             color: var(--text-color);
-            font-family: var(--font-secondary);
-            font-size: 1em;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
+            gap: 8px;
         }
 
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .action-btn:active::before {
-            left: 100%;
-        }
-
-        .action-btn:active {
-            background: rgba(0, 247, 255, 0.2);
-            transform: scale(0.95);
-            border-color: var(--accent-color);
+        .action-btn:hover {
+            background: rgba(211, 47, 47, 0.4);
+            transform: translateY(-2px);
         }
 
         .action-btn i {
-            font-size: 1.5em;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
+            color: var(--secondary-color);
+            font-size: 1.4em;
         }
 
-        .action-btn:active i {
-            transform: scale(1.2);
-            color: var(--accent-color);
-        }
-
-        /* Specialty */
         .specialty {
-            text-align: center;
-            color: transparent;
-            font-size: 1.3em;
-            font-family: var(--font-secondary);
-            font-weight: 700;
-            padding: 15px 25px;
-            border: 2px solid transparent;
-            border-radius: 15px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            font-weight: 600;
             margin-top: var(--padding-medium);
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
-            animation: specialtyPulse 3s infinite;
+            padding: 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            background: rgba(255, 193, 7, 0.1);
         }
 
-        .specialty::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .specialty:active::before {
-            left: 100%;
-        }
-
-        @keyframes specialtyPulse {
-            0%, 100% { 
-                box-shadow: 0 0 15px rgba(255, 0, 214, 0.4);
-            }
-            50% { 
-                box-shadow: 0 0 25px rgba(255, 0, 214, 0.8);
-            }
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(10, 10, 30, 0.98);
-            padding: var(--padding-large);
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), #b71c1c);
+            color: var(--text-color);
+            padding: var(--padding-medium) 0;
             text-align: center;
-            border-top: 2px solid var(--primary-color);
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
-            animation: footerGlow 3s infinite linear;
-            background-size: 200%;
-        }
-
-        @keyframes footerGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .copyright {
-            color: var(--primary-color);
-            font-family: var(--font-secondary);
+            margin-bottom: var(--padding-small);
             font-size: 0.9em;
-            margin-bottom: var(--padding-medium);
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--primary-color);
         }
 
-        .social-grid {
+        .social-icons {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: var(--padding-medium);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .social-btn {
-            width: 55px;
-            height: 55px;
+        .social-icon {
+            color: var(--text-color);
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid var(--primary-color);
-            color: var(--text-color);
-            font-size: 1.4em;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
 
-        .social-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .social-btn:active::before {
-            left: 100%;
-        }
-
-        .social-btn:active {
-            transform: scale(0.9);
-            border-color: var(--secondary-color);
+        .social-icon:hover {
             color: var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(255, 0, 214, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
 
-        /* Desktop Styles */
-        @media (min-width: 1024px) {
-            .social-grid {
-                gap: 6px;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3em;
-            }
-            
-            .card {
-                max-width: 650px;
-                padding: 35px;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 25px;
-            }
-            
-            .quick-actions {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            :root {
-                --padding-small: 10px;
-                --padding-medium: 16px;
-                --padding-large: 20px;
-            }
-
-            .card {
+        @media screen and (max-width: 768px) {
+            .business-card {
                 padding: var(--padding-medium);
             }
-
+            
             .profile-name {
-                font-size: 2em;
+                font-size: 1.8em;
             }
-
-            .contact-item {
-                padding: 16px;
+            
+            .logo {
+                width: 60px;
+                height: 60px;
             }
-
+            
             .quick-actions {
                 grid-template-columns: 1fr;
             }
             
-            .social-grid {
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .profile-name {
-                font-size: 1.7em;
-            }
-
             .contact-item {
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
-            }
-
-            .contact-icon {
-                margin-right: 0;
-                margin-bottom: 8px;
+                gap: 8px;
             }
         }
 
-        /* Image fallback styles */
-        .image-fallback {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: var(--dark-bg);
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        /* PWA Status Indicator */
-        .pwa-status {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00ff88;
-            z-index: 1001;
-            box-shadow: 0 0 10px #00ff88;
-            display: none;
-        }
-
-        .pwa-status.offline {
-            background: #ff4444;
-            box-shadow: 0 0 10px #ff4444;
-        }
-
-        /* Manual Install Button */
-        .manual-install {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-            color: var(--dark-bg);
-            padding: 12px 20px;
-            border-radius: 20px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            z-index: 9999;
-            font-family: var(--font-secondary);
-            font-weight: 600;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.6);
-            border: 2px solid var(--accent-color);
-            cursor: pointer;
+        @media screen and (max-width: 480px) {
+            .business-card {
+                padding: var(--padding-small);
+            }
+            
+            .profile-name {
+                font-size: 1.6em;
+            }
+            
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- PWA Status Indicator -->
-    <div class="pwa-status" id="pwaStatus"></div>
-
     <!-- Install Prompt -->
     <div class="install-prompt" id="installPrompt">
         <i class="fas fa-download"></i>
-        <span>Install Business Card App</span>
+        <span>Install Business Card</span>
         <button id="installBtn">INSTALL</button>
     </div>
 
-    <!-- Manual Install Instructions -->
-    <div class="manual-install" id="manualInstall">
-        <i class="fas fa-mobile-alt"></i>
-        <span>Tap ⋮ then "Install App"</span>
+    <!-- Logo -->
+    <div class="logo-container">
+        <div class="logo" id="logo">
+            <!-- Logo will be loaded via JavaScript -->
+            C
+        </div>
     </div>
 
-    <!-- Background -->
-    <div class="cyber-bg"></div>
-    <div class="cyber-grid"></div>
-    <div class="particles" id="particles"></div>
-
-    <!-- Header -->
-    <header class="header">
-        <a href="#" class="logo">
-            <img src="images/capmatic.png" alt="Capmatic" class="logo-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'logo-img image-fallback\'>C</div>'">
-            <div class="logo-text">CAPMATIC</div>
-        </a>
-        <div class="menu-btn" id="menuBtn">
-            <i class="fas fa-bars"></i>
-        </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-section">
-            <div class="nav-title">Quick Actions</div>
-            <a href="tel:+15143220062" class="nav-item">
-                <i class="fas fa-phone"></i>
-                <span>Call Now</span>
-            </a>
-            <a href="mailto:dgaudreault@capmatic.com" class="nav-item">
-                <i class="fas fa-envelope"></i>
-                <span>Send Email</span>
-            </a>
-            <a href="http://www.capmatic.com" class="nav-item" target="_blank">
-                <i class="fas fa-globe"></i>
-                <span>Visit Website</span>
-            </a>
-            <a href="https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7" class="nav-item" target="_blank">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Get Directions</span>
-            </a>
-        </div>
-        
-        <div class="nav-section">
-            <div class="nav-title">App Features</div>
-            <a href="#" class="nav-item" id="installNavBtn">
-                <i class="fas fa-download"></i>
-                <span>Install App</span>
-            </a>
-            <a href="#" class="nav-item" id="shareBtn">
-                <i class="fas fa-share-alt"></i>
-                <span>Share Contact</span>
-            </a>
-            <a href="#" class="nav-item" id="themeBtn">
-                <i class="fas fa-palette"></i>
-                <span>Change Theme</span>
-            </a>
-            <a href="#" class="nav-item" id="refreshBtn">
-                <i class="fas fa-sync-alt"></i>
-                <span>Refresh Data</span>
-            </a>
-        </div>
-    </nav>
-
     <!-- Main Content -->
-    <main class="main-content">
-        <article class="card">
-            <div class="scan-line"></div>
-            <div class="corner corner-tl"></div>
-            <div class="corner corner-tr"></div>
-            <div class="corner corner-bl"></div>
-            <div class="corner corner-br"></div>
-            
-            <div class="profile">
-                <img src="images/logo.png" alt="Daniel Gaudreault" class="profile-img" onerror="this.classList.add('image-fallback'); this.outerHTML='<div class=\'profile-img image-fallback\'>DG</div>'">
+    <div class="main-content">
+        <div class="business-card">
+            <div class="profile-header">
                 <h1 class="profile-name">DANIEL GAUDREAULT</h1>
-                <div class="profile-title">CYBER CARD</div>
+                <div class="profile-title">BUSINESS CARD</div>
             </div>
             
             <div class="contact-grid">
                 <div class="contact-item" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
+                    <i class="fas fa-envelope contact-icon"></i>
                     <div class="contact-info">
                         <div class="contact-label">EMAIL</div>
                         <a href="mailto:dgaudreault@capmatic.com" class="contact-value">dgaudreault@capmatic.com</a>
@@ -1077,19 +369,15 @@
                 </div>
                 
                 <div class="contact-item" onclick="handleAction('tel:+15143220062')">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
+                    <i class="fas fa-phone contact-icon"></i>
                     <div class="contact-info">
                         <div class="contact-label">PHONE</div>
                         <a href="tel:+15143220062" class="contact-value">+1 514-322-0062 Ext 231</a>
                     </div>
                 </div>
                 
-                <div class="contact-item" onclick="handleAction('https://www.google.com/maps/search/?api=1&query=12180+Albert-Hudon+Montreal+Qc+Canada+H1G+3K7')">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
+                <div class="contact-item" onclick="handleAction('https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7')">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
                     <div class="contact-info">
                         <div class="contact-label">ADDRESS</div>
                         <span class="contact-value">12180 Albert-Hudon, Montreal, QC H1G 3K7</span>
@@ -1097,256 +385,105 @@
                 </div>
                 
                 <div class="contact-item" onclick="handleAction('http://www.capmatic.com')">
-                    <div class="contact-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
+                    <i class="fas fa-globe contact-icon"></i>
                     <div class="contact-info">
                         <div class="contact-label">WEBSITE</div>
                         <a href="http://www.capmatic.com" class="contact-value" target="_blank">www.capmatic.com</a>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="action-btn" onclick="handleAction('tel:+15143220062')">
+                    <i class="fas fa-phone"></i>
+                    <span>Call</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('mailto:dgaudreault@capmatic.com')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('https://maps.google.com/?q=12180+Albert-Hudon+Montreal+QC+H1G+3K7')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Directions</span>
+                </div>
+                <div class="action-btn" onclick="handleAction('http://www.capmatic.com')">
+                    <i class="fas fa-globe"></i>
+                    <span>Website</span>
+                </div>
+            </div>
+
             <div class="specialty">
                 PACKAGING MACHINERY & ROBOTIC SOLUTIONS
             </div>
-        </article>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="copyright">
-            © 2025 DANIEL GAUDREAULT - CAPMATIC LTD. ALL RIGHTS RESERVED.
         </div>
-        
-        <div class="social-grid">
-            <a href="https://www.linkedin.com/in/daniel-gaudreault-373b67203/" class="social-btn" onclick="showAlert(event, 'LinkedIn')">
+    </div>
+
+    <footer>
+        <div class="copyright">
+            © 2025 DANIEL GAUDREAULT - CAPMATIC LTD.
+        </div>
+        <div class="social-icons">
+            <div class="social-icon" onclick="showMessage('LinkedIn', 'https://www.linkedin.com/in/daniel-gaudreault-373b67203/')">
                 <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.facebook.com/dan.gaudreault/" class="social-btn" onclick="showAlert(event, 'Facebook')">
+            </div>
+            <div class="social-icon" onclick="showMessage('Facebook', 'https://www.facebook.com/dan.gaudreault/')">
                 <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://twitter.com/DGmovement87" class="social-btn" onclick="showAlert(event, 'Twitter')">
+            </div>
+            <div class="social-icon" onclick="showMessage('Twitter', 'https://twitter.com/DGmovement87')">
                 <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://github.com/DanielGaudreault" class="social-btn" onclick="showAlert(event, 'GitHub')">
+            </div>
+            <div class="social-icon" onclick="showMessage('GitHub', 'https://github.com/DanielGaudreault')">
                 <i class="fab fa-github"></i>
-            </a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // DOM Elements
-        const menuBtn = document.getElementById('menuBtn');
-        const nav = document.getElementById('nav');
+        // Load logo image with error handling
+        function loadLogo() {
+            const logo = document.getElementById('logo');
+            const img = new Image();
+            img.src = '/images/capmatic.png';
+            img.onload = function() {
+                logo.innerHTML = '';
+                logo.appendChild(img);
+            };
+            img.onerror = function() {
+                // Keep the fallback 'C' if image fails to load
+                console.log('Logo image not found, using fallback');
+            };
+        }
+
+        // PWA Installation
+        let deferredPrompt;
         const installPrompt = document.getElementById('installPrompt');
         const installBtn = document.getElementById('installBtn');
-        const installNavBtn = document.getElementById('installNavBtn');
-        const shareBtn = document.getElementById('shareBtn');
-        const themeBtn = document.getElementById('themeBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const pwaStatus = document.getElementById('pwaStatus');
-        const manualInstall = document.getElementById('manualInstall');
 
-        let deferredPrompt;
-        let currentTheme = 'cyber';
-
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 20 : 40;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const left = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = 10 + Math.random() * 20;
-                const size = 2 + Math.random() * 4;
-                
-                particle.style.left = `${left}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                const colors = ['var(--primary-color)', 'var(--secondary-color)', 'var(--accent-color)'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = color;
-                particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Menu Toggle
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            nav.classList.toggle('active');
-            menuBtn.querySelector('i').className = nav.classList.contains('active') 
-                ? 'fas fa-times' 
-                : 'fas fa-bars';
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!menuBtn.contains(e.target) && !nav.contains(e.target)) {
-                nav.classList.remove('active');
-                menuBtn.querySelector('i').className = 'fas fa-bars';
-            }
-        });
-
-        // PWA Installation - COMPLETELY FIXED
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('✅ PWA install prompt triggered');
+            console.log('PWA install prompt triggered');
             e.preventDefault();
             deferredPrompt = e;
-            
-            // Show install prompt
             installPrompt.style.display = 'flex';
-            
-            // Also show manual install instructions for browsers that don't show auto prompt
-            setTimeout(() => {
-                manualInstall.style.display = 'flex';
-            }, 3000);
         });
-
-        // Check if app is already installed
-        function isAppInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches || 
-                   window.navigator.standalone === true;
-        }
 
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
-                console.log('🔄 Starting installation...');
-                deferredPrompt.prompt();
-                
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log('📱 User response to install prompt:', outcome);
-                
-                if (outcome === 'accepted') {
-                    installPrompt.style.display = 'none';
-                    manualInstall.style.display = 'none';
-                    showAlert(null, '🎉 App installed successfully! You can now find it on your home screen.', 'success');
-                } else {
-                    showAlert(null, 'Installation cancelled. You can install it later from the menu.', 'info');
-                }
-                
-                deferredPrompt = null;
-            } else {
-                showManualInstallInstructions();
-            }
-        });
-
-        installNavBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 
                 if (outcome === 'accepted') {
                     installPrompt.style.display = 'none';
-                    manualInstall.style.display = 'none';
-                    nav.classList.remove('active');
-                    menuBtn.querySelector('i').className = 'fas fa-bars';
-                    showAlert(null, '🎉 App installed successfully!', 'success');
+                    showAlert('App installed successfully!', 'success');
                 }
                 deferredPrompt = null;
-            } else {
-                showManualInstallInstructions();
-                nav.classList.remove('active');
-                menuBtn.querySelector('i').className = 'fas fa-bars';
             }
         });
 
-        // Manual install instructions
-        function showManualInstallInstructions() {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
-            
-            let instructions = '';
-            
-            if (isIOS) {
-                instructions = 'Tap the share button 📤 at the bottom, then "Add to Home Screen"';
-            } else if (isAndroid) {
-                instructions = 'Tap the menu button (⋮) in Chrome, then "Install App" or "Add to Home Screen"';
-            } else {
-                instructions = 'Look for the install icon in your browser\'s address bar, or check the browser menu';
-            }
-            
-            showAlert(null, `To install this app:\n\n${instructions}`, 'info');
+        // Check if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installPrompt.style.display = 'none';
         }
-
-        manualInstall.addEventListener('click', showManualInstallInstructions);
-
-        // Share Functionality
-        shareBtn.addEventListener('click', async () => {
-            const shareData = {
-                title: 'Daniel Gaudreault - Capmatic',
-                text: 'Packaging Machinery & Robotic Solutions\n\nContact Information:\nEmail: dgaudreault@capmatic.com\nPhone: +1 514-322-0062 Ext 231\nWebsite: www.capmatic.com',
-                url: window.location.href
-            };
-
-            try {
-                if (navigator.share) {
-                    await navigator.share(shareData);
-                    showAlert(null, 'Contact shared successfully!', 'success');
-                } else {
-                    await navigator.clipboard.writeText(shareData.text);
-                    showAlert(null, 'Contact info copied to clipboard!', 'success');
-                }
-            } catch (err) {
-                console.log('Share failed:', err);
-                await navigator.clipboard.writeText(shareData.text);
-                showAlert(null, 'Contact info copied to clipboard!', 'success');
-            }
-            
-            nav.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-        });
-
-        // Theme Toggle
-        themeBtn.addEventListener('click', () => {
-            const themes = ['cyber', 'professional', 'dark'];
-            const themeColors = {
-                cyber: { 
-                    primary: '#00f7ff', 
-                    secondary: '#ff00d6', 
-                    accent: '#00ff88' 
-                },
-                professional: { 
-                    primary: '#0066cc', 
-                    secondary: '#ff6600', 
-                    accent: '#00aa66' 
-                },
-                dark: { 
-                    primary: '#ffffff', 
-                    secondary: '#cccccc', 
-                    accent: '#888888' 
-                }
-            };
-
-            currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
-            const colors = themeColors[currentTheme];
-
-            document.documentElement.style.setProperty('--primary-color', colors.primary);
-            document.documentElement.style.setProperty('--secondary-color', colors.secondary);
-            document.documentElement.style.setProperty('--accent-color', colors.accent);
-
-            nav.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-            
-            showAlert(null, `Theme changed to ${currentTheme}`, 'info');
-        });
-
-        // Refresh Button
-        refreshBtn.addEventListener('click', () => {
-            window.location.reload();
-            nav.classList.remove('active');
-            menuBtn.querySelector('i').className = 'fas fa-bars';
-            showAlert(null, 'App refreshed!', 'success');
-        });
 
         // Action Handler
         function handleAction(url) {
@@ -1358,16 +495,11 @@
         }
 
         // Alert Function
-        function showAlert(event, message, type = 'info') {
-            if (event) event.preventDefault();
-            
+        function showAlert(message, type = 'info') {
             const config = {
-                background: 'rgba(20, 20, 50, 0.95)',
+                background: 'rgba(0, 0, 0, 0.9)',
                 color: 'white',
-                confirmButtonColor: 'var(--primary-color)',
-                customClass: {
-                    popup: 'cyber-popup'
-                }
+                confirmButtonColor: '#D32F2F'
             };
 
             if (type === 'success') {
@@ -1377,88 +509,50 @@
                     icon: 'success',
                     ...config
                 });
-            } else if (type === 'info') {
+            } else {
                 Swal.fire({
                     title: 'Information',
                     text: message,
                     icon: 'info',
                     ...config
                 });
-            } else {
-                Swal.fire({
-                    title: `<span style="color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color);">${message}</span>`,
-                    html: `<p style="color: white; font-size: 16px;">Opening ${message}</p>`,
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Open',
-                    cancelButtonText: 'Cancel',
-                    cancelButtonColor: 'var(--secondary-color)',
-                    ...config
-                }).then((result) => {
-                    if (result.isConfirmed && event) {
-                        window.open(event.target.closest('a').href, '_blank');
-                    }
-                });
             }
         }
 
-        // Network Status Monitoring
-        function updateNetworkStatus() {
-            if (navigator.onLine) {
-                pwaStatus.style.display = 'block';
-                pwaStatus.classList.remove('offline');
-            } else {
-                pwaStatus.style.display = 'block';
-                pwaStatus.classList.add('offline');
-                showAlert(null, 'You are currently offline. Some features may not be available.', 'info');
-            }
+        function showMessage(platform, url) {
+            Swal.fire({
+                title: platform,
+                text: 'Opening ' + platform,
+                icon: 'info',
+                confirmButtonText: 'Open',
+                showCancelButton: true,
+                background: 'rgba(0, 0, 0, 0.9)',
+                color: 'white',
+                confirmButtonColor: '#D32F2F'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open(url, '_blank');
+                }
+            });
         }
 
-        // Service Worker Registration - FIXED
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js')
                     .then(function(registration) {
-                        console.log('✅ ServiceWorker registration successful with scope: ', registration.scope);
+                        console.log('ServiceWorker registration successful');
                     })
                     .catch(function(error) {
-                        console.log('❌ ServiceWorker registration failed: ', error);
+                        console.log('ServiceWorker registration failed: ', error);
                     });
-            }
+            });
         }
 
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Initializing Capmatic PWA...');
-            
-            createParticles();
-            registerServiceWorker();
-            updateNetworkStatus();
-            
-            // Hide install prompts if already installed
-            if (isAppInstalled()) {
-                installPrompt.style.display = 'none';
-                manualInstall.style.display = 'none';
-                console.log('✅ App is already installed');
-            }
-            
-            // Network status event listeners
-            window.addEventListener('online', updateNetworkStatus);
-            window.addEventListener('offline', updateNetworkStatus);
-
-            // Add touch feedback
-            const touchElements = document.querySelectorAll('.contact-item, .action-btn, .social-btn, .nav-item');
-            touchElements.forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-                
-                element.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                });
-            });
-
-            console.log('✅ Capmatic PWA initialized successfully');
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLogo();
+            console.log('Capmatic Business Card loaded successfully');
         });
     </script>
 </body>
