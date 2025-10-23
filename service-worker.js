@@ -1,31 +1,31 @@
-// Service Worker for Capmatic Business Card PWA - Version 2.0.0
-const CACHE_NAME = 'capmatic-pwa-v2.0.0';
-const STATIC_CACHE = 'capmatic-static-v2.0.0';
-
-// Core assets to cache immediately
-const CORE_ASSETS = [
+// Service Worker for Capmatic Business Card PWA - Version 3.0.0
+const CACHE_NAME = 'capmatic-pwa-v3.0.0';
+const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
   '/service-worker.js',
   '/images/capmatic.png',
   '/images/logo.png',
-  '/offline'
+  '/offline',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap',
+  'https://cdn.jsdelivr.net/npm/sweetalert2@11'
 ];
 
-// Install event - cache core assets
+// Install event
 self.addEventListener('install', (event) => {
   console.log('🛠️ Service Worker installing...');
+  self.skipWaiting();
   
   event.waitUntil(
-    caches.open(STATIC_CACHE)
+    caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('📦 Caching core assets');
-        return cache.addAll(CORE_ASSETS);
+        console.log('📦 Opened cache');
+        return cache.addAll(urlsToCache);
       })
       .then(() => {
-        console.log('✅ Core assets cached successfully');
-        return self.skipWaiting();
+        console.log('✅ All resources cached');
       })
       .catch((error) => {
         console.error('❌ Cache installation failed:', error);
@@ -33,7 +33,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event - clean up old caches
+// Activate event
 self.addEventListener('activate', (event) => {
   console.log('🎯 Service Worker activating...');
   
@@ -41,130 +41,89 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (!cacheName.includes('v2.0.0')) {
+          if (cacheName !== CACHE_NAME) {
             console.log('🧹 Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker activated and ready');
+      console.log('✅ Service Worker activated');
       return self.clients.claim();
     })
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests and browser extensions
-  if (event.request.method !== 'GET' || 
-      event.request.url.startsWith('chrome-extension://') ||
-      event.request.url.includes('extension')) {
-    return;
-  }
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') return;
 
   event.respondWith(
     caches.match(event.request)
-      .then((cachedResponse) => {
-        // Return cached version if found
-        if (cachedResponse) {
-          console.log('📨 Serving from cache:', event.request.url);
-          return cachedResponse;
+      .then((response) => {
+        // Return cached version
+        if (response) {
+          return response;
         }
 
-        // Otherwise fetch from network
-        console.log('🌐 Fetching from network:', event.request.url);
+        // Otherwise, fetch from network
         return fetch(event.request)
-          .then((networkResponse) => {
-            // Cache successful responses
-            if (networkResponse.ok && event.request.url.startsWith('http')) {
-              const responseToCache = networkResponse.clone();
-              caches.open(STATIC_CACHE)
-                .then((cache) => {
-                  cache.put(event.request, responseToCache);
-                });
+          .then((response) => {
+            // Check if we received a valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
             }
-            return networkResponse;
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
           })
-          .catch((error) => {
-            console.log('❌ Network failed:', error);
-            
-            // For HTML requests, return offline page
-            if (event.request.destination === 'document') {
+          .catch(() => {
+            // If both fail, show offline page for HTML requests
+            if (event.request.headers.get('accept').includes('text/html')) {
               return caches.match('/offline');
             }
-            
-            // For images, return a placeholder
-            if (event.request.destination === 'image') {
-              return new Response(
-                '<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#0a0a1a"/><text x="50" y="50" font-family="Arial" font-size="10" fill="white" text-anchor="middle">📱</text></svg>',
-                { headers: { 'Content-Type': 'image/svg+xml' } }
-              );
-            }
-            
-            return new Response('Offline', { 
-              status: 408, 
-              statusText: 'Network disconnected' 
-            });
           });
       })
   );
 });
 
 // Handle app installation
-self.addEventListener('beforeinstallprompt', (event) => {
-  console.log('📱 PWA installation prompt available');
-  event.preventDefault();
-  self.deferredPrompt = event;
+self.addEventListener('beforeinstallprompt', (e) => {
+  console.log('📱 beforeinstallprompt event fired');
+  e.preventDefault();
+  self.deferredPrompt = e;
 });
 
 // Handle push notifications
-self.addEventListener('push', (event) => {
-  if (!event.data) return;
-  
-  const data = event.data.json();
+self.addEventListener('push', function(event) {
+  console.log('📲 Push message received');
   const options = {
-    body: data.body || 'New update from Capmatic',
+    body: 'New update available from Capmatic',
     icon: '/images/capmatic.png',
     badge: '/images/capmatic.png',
     vibrate: [100, 50, 100],
     data: {
-      url: data.url || '/'
-    },
-    actions: [
-      {
-        action: 'open',
-        title: 'Open App'
-      },
-      {
-        action: 'close',
-        title: 'Close'
-      }
-    ]
+      url: '/'
+    }
   };
-  
+
   event.waitUntil(
-    self.registration.showNotification(data.title || 'Capmatic', options)
+    self.registration.showNotification('Capmatic', options)
   );
 });
 
-// Handle notification clicks
-self.addEventListener('notificationclick', (event) => {
+self.addEventListener('notificationclick', function(event) {
+  console.log('📲 Notification click received');
   event.notification.close();
-  
-  if (event.action === 'open') {
-    event.waitUntil(
-      clients.matchAll({ type: 'window' }).then((clientList) => {
-        for (const client of clientList) {
-          if (client.url === '/' && 'focus' in client) {
-            return client.focus();
-          }
-        }
-        
-        if (clients.openWindow) {
-          return clients.openWindow('/');
-        }
-      })
-    );
-  }
+  event.waitUntil(
+    clients.openWindow('/')
+  );
 });
